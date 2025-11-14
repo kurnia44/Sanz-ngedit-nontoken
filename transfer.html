@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struk Transaksi</title>
+    <style>
+        /* Reset dan Pengaturan Dasar */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #e9ebee; /* Latar belakang abu-abu di luar HP */
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+        }
+
+        /* Kontainer utama yang menyerupai layar HP */
+        .brimo-container {
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+            background-color: #f4f6f9; /* Latar belakang abu-abu muda di dalam HP */
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh; 
+            min-height: 700px;
+        }
+
+        /* Header Biru */
+        .receipt-header {
+            background: linear-gradient(180deg, #00529B 0%, #006ECB 100%);
+            padding: 24px 20px 48px 20px; /* Padding bawah lebih besar untuk overlap card */
+            color: white;
+            text-align: center;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 16px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #006ECB;
+        }
+
+        .receipt-header h1 {
+            margin: 0;
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600;
+        }
+
+        .receipt-header p {
+            margin: 4px 0 0 0;
+            font-size: 0.8125rem; /* 13px */
+            opacity: 0.9;
+        }
+        
+        /* Area Konten Utama (Bisa Scroll) */
+        .receipt-main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 20px 20px;
+            margin-top: -30px; /* Trik untuk menimpa header */
+            position: relative;
+            z-index: 2;
+        }
+
+        /* * KARTU STRUK (BAGIAN YANG DIMODIFIKASI)
+         * Kita gunakan gambar Anda sebagai background dan atur 
+         * aspect-ratio nya agar tidak penyok.
+        */
+        .receipt-card {
+            position: relative; /* Diperlukan untuk positioning absolut anak elemen */
+            width: 100%;
+            
+            /* (Tinggi / Lebar) * 100% = (517 / 692) * 100% = 74.71% */
+            /* Ini adalah trik untuk menjaga aspect ratio gambar */
+            height: 0;
+            padding-top: 74.71%; 
+            
+            /* Ganti '1000455195.png' jika nama file Anda berbeda */
+            background-image: url('1000455195.png');
+            background-size: 100% 100%; /* Paksa gambar memenuhi kontainer */
+            background-repeat: no-repeat;
+            
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 68, 137, 0.08);
+            overflow: hidden;
+        }
+
+        /* * KELAS BARU UNTUK MENEMPATKAN TEKS DI ATAS BACKGROUND
+         * Posisi menggunakan persentase (%) agar tetap pas
+         * saat ukuran layar berubah (responsif).
+        */
+        .total-amount {
+            position: absolute;
+            top: 13.5%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1;
+        }
+        .total-amount sup {
+            font-size: 1.25rem;
+            font-weight: 600;
+            vertical-align: super;
+            margin-right: 2px;
+        }
+
+        .ref-value {
+            position: absolute;
+            top: 27.8%;
+            right: 7%;
+            font-size: 0.9375rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .sender-details, .recipient-details {
+            position: absolute;
+            left: 7%;
+            right: 7%; /* Tambahkan right agar tidak mentok */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sender-details {
+            top: 42%;
+        }
+        .recipient-details {
+            top: 66%;
+        }
+
+        /* Style untuk ikon dan teks (masih sama) */
+        .party-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+        .party-icon.sender {
+            background-color: #005EAA;
+            color: white;
+        }
+        .party-icon.recipient {
+            background-color: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23bbbbbb'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd' /></svg>");
+            background-size: 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .party-text {
+            line-height: 1.4;
+            min-width: 0; /* Mencegah teks meluap */
+        }
+        .party-text .name {
+            font-size: 1rem; /* 16px */
+            font-weight: 600;
+            color: #1a1a1a;
+            display: block;
+            white-space: nowrap; /* Mencegah nama turun baris */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .party-text .bank,
+        .party-text .account {
+            font-size: 0.875rem; /* 14px */
+            color: #555;
+            display: block;
+        }
+        /* --- Akhir dari modifikasi --- */
+
+
+        /* Bagian Produk Pilihan */
+        .products-section {
+            padding: 24px 0 0 0; /* Padding di dalam .receipt-main */
+        }
+        
+        .products-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 12px 0;
+        }
+
+        .products-section h3 span {
+            color: #f57f17; /* Warna oranye untuk "mo" */
+        }
+
+        .product-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 16px rgba(0, 68, 137, 0.06);
+            line-height: 1.4;
+        }
+
+        .product-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: grid;
+            place-items: center;
+            background-color: #f0f0f0; 
+            color: #005EAA;
+            font-weight: bold;
+        }
+        
+        .product-icon.rdn {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='%23005EAA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'></path></svg>");
+            background-size: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #e6f0ff;
+        }
+        
+        .product-icon.britama {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='%23005EAA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'></path></svg>");
+            background-size: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #e6f0ff;
+        }
+
+        .product-card .title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 4px 0;
+            display: block;
+        }
+        
+        .product-card .description {
+            font-size: 0.8125rem;
+            color: #555;
+            margin: 0;
+        }
+
+        /* Footer Tetap di Bawah */
+        .receipt-footer {
+            background-color: #ffffff;
+            padding: 16px 20px;
+            border-top: 1px solid #e0e0e0;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 12px;
+            z-index: 3;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem; /* 16px */
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-outline {
+            background-color: #ffffff;
+            border: 2px solid #005EAA;
+            color: #005EAA;
+        }
+        
+        .btn-outline:hover {
+            background-color: #f0f6ff;
+        }
+
+        .btn-primary {
+            background-color: #005EAA;
+            color: white;
+            border: 2px solid #005EAA;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004a8c;
+        }
+
+    </style>
+</head>
+<body>
+
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5" />
+            </symbol>
+            <symbol id="icon-share" viewBox="0 0 20 20" fill="currentColor">
+                 <path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .893-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+            </symbol>
+            <symbol id="icon-check-footer" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z" clip-rule="evenodd" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="brimo-container">
+        
+        <header class="receipt-header">
+            <div class="header-icon">
+                <svg><use href="#icon-check" /></svg>
+            </div>
+            <h1>Transaksi Berhasil</h1>
+            <p>22 Januari 2024, 12:08:43 WIB</p>
+        </header>
+
+        <main class="receipt-main">
+            
+            <section class="receipt-card">
+                
+                <div class="total-amount"><sup>Rp</sup>34.500.000</div>
+                
+                <div class="ref-value">617693768874</div>
+                
+                <div class="sender-details">
+                    <div class="party-icon sender">RF</div>
+                    <div class="party-text">
+                        <span class="name">REZA FERDI</span>
+                        <span class="bank">BANK BRI</span>
+                        <span class="account">0002 **** 534</span>
+                    </div>
+                </div>
+                
+                <div class="recipient-details">
+                    <div class="party-icon recipient">
+                        </div>
+                    <div class="party-text">
+                        <span class="name">MUHAMMAD NUR KHOSIM</span>
+                        <span class="bank">BANK BRI</span>
+                        <span class="account">5763 0102 1714 532</span>
+                    </div>
+                </div>
+                
+                </section>
+            
+            <section class="products-section">
+                <h3>Produk Pilihan Untuk<span>mo</span></h3>
+                
+                <div class="product-cards">
+                    <div class="product-card">
+                        <div class="product-icon rdn"></div>
+                        <span class="title">Rekening Dana Nasabah (RDN)</span>
+                        <span class="description">Raih kestabilan finansial di</span>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-icon britama"></div>
+                        <span class="title">Tabungan BritAma</span>
+                        <span class="description">Nikmati kebebasan</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="receipt-footer">
+            <button class="btn btn-outline">
+                <svg><use href="#icon-share" /></svg>
+                Bagikan
+            </button>
+            <button class="btn btn-primary">
+                <svg><use href="#icon-check-footer" /></svg>
+                Selesai
+            </button>
+        </footer>
+
+    </div>
+
+</body>
+</html>

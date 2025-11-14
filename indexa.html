@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer UI - Solusi Lengkap</title>
+    
+    <style>
+        /* * ======================================
+         * FONT & PENGATURAN DASAR
+         * ======================================
+         */
+        @font-face {
+          font-family: 'FontAngkaUser'; 
+          src: url('2131296268.ttf') format('truetype');
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display.swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F9FB; 
+            display: flex;
+            justify-content: center;
+        }
+
+        /* * ======================================
+         * STRUKTUR UTAMA APLIKASI
+         * ======================================
+         */
+        .app-container {
+            width: 100%;
+            max-width: 450px; 
+            min-height: 100vh;
+            background-color: #F8F9FB;
+            display: flex;
+            flex-direction: column; 
+            position: relative; 
+            overflow-x: hidden;
+        }
+
+        .app-content {
+            flex-grow: 1; 
+            padding: 0 16px; 
+        }
+
+        /* * ======================================
+         * 1. HEADER
+         * ======================================
+         */
+        .app-header {
+            background-color: #007AFF; 
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center; 
+            position: sticky; 
+            top: 0;
+            z-index: 100;
+        }
+
+        .app-header .back-icon {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            margin-right: 16px;
+        }
+
+        .app-header h1 {
+            margin: 0;
+            font-size: 17px; 
+            font-weight: 500; 
+            flex-grow: 1;
+            text-align: center;
+            margin-right: 40px; 
+        }
+
+        /* * ======================================
+         * KARTU (CARD) - Gaya Default
+         * ======================================
+         */
+        .card {
+            background-color: #FFFFFF; 
+            border-radius: 12px; 
+            padding: 16px; 
+            margin-top: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            border: none; 
+            overflow: hidden; 
+        }
+
+        /* Judul bagian */
+        .section-title {
+            display: block;
+            margin-top: 24px; 
+            margin-bottom: 8px;
+            margin-left: 4px; 
+            font-size: 14px;
+            font-weight: bold; 
+            color: #000000; 
+        }
+
+        /* * ======================================
+         * INFO PENERIMA (DINAMIS)
+         * ======================================
+         */
+        .recipient-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .recipient-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; 
+            background-color: #E6F2FB; 
+            color: #007AFF; 
+            font-weight: 500; 
+            font-size: 18px;
+            margin-right: 12px;
+            display: grid;
+            place-items: center;
+        }
+
+        .recipient-details h3 {
+            margin: 0 0 2px 0; 
+            font-size: 16px;
+            font-weight: 500; 
+            color: #111;
+        }
+
+        .recipient-details p {
+            margin: 0;
+            font-size: 14px;
+            color: #888; 
+        }
+
+        /* * ======================================
+         * TOGGLE SWITCH (iOS Style)
+         * ======================================
+         */
+        .toggle-card {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 14px 16px; 
+        }
+
+        .toggle-card label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 51px; 
+            height: 31px; 
+        }
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #E9E9EB; 
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 27px; 
+            width: 27px; 
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        }
+        input:checked + .slider {
+            background-color: #007AFF; 
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px); 
+        }
+
+        /* * ======================================
+         * METODE TRANSFER (DROPDOWN)
+         * ======================================
+         */
+        .select-wrapper {
+            position: relative;
+            padding: 0; 
+        }
+        .select-wrapper select {
+            width: 100%;
+            padding: 16px; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            background-color: #FFFFFF; 
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        .select-wrapper::after {
+            content: '⌄'; 
+            font-size: 20px;
+            color: #888;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%); 
+            pointer-events: none; 
+        }
+
+        /* * ======================================
+         * KARTU NOMINAL TRANSFER
+         * ======================================
+         */
+        .card-nominal {
+            padding: 0;
+        }
+
+        .nominal-input-area {
+            display: block;
+            cursor: text;
+            padding: 16px 16px 12px 16px; 
+        }
+
+        .nominal-input-wrapper {
+            display: flex;
+            align-items: baseline; 
+        }
+
+        .nominal-input-wrapper span {
+            font-size: 28px;
+            font-weight: bold; 
+            color: #111;
+            margin-right: 8px;
+            font-family: 'FontAngkaUser', sans-serif;
+        }
+
+        .nominal-input {
+            width: 100%;
+            border: none;
+            outline: none; 
+            font-size: 28px;
+            font-weight: bold; 
+            color: #111;
+            padding: 0;
+            font-family: 'FontAngkaUser', sans-serif;
+        }
+
+        .nominal-input::placeholder {
+            color: #111;
+            font-weight: bold;
+            opacity: 1; 
+            font-family: 'FontAngkaUser', sans-serif;
+        }
+        .nominal-input::-webkit-input-placeholder { 
+            color: #111;
+            font-weight: bold;
+            opacity: 1;
+            font-family: 'FontAngkaUser', sans-serif;
+        }
+        .nominal-input::-moz-placeholder { 
+            color: #111;
+            font-weight: bold;
+            opacity: 1;
+            font-family: 'FontAngkaUser', sans-serif;
+        }
+        .nominal-input:-ms-input-placeholder { 
+            color: #111;
+            font-weight: bold;
+            opacity: 1;
+            font-family: 'FontAngkaUser', sans-serif;
+        }
+
+        .nominal-minimum {
+            font-size: 13px;
+            color: #888; 
+            margin-top: 6px; 
+            margin-bottom: 0;
+            transition: color 0.3s ease; 
+        }
+
+        .card-divider {
+            border: none;
+            height: 1px;
+            background-color: #F0F0F0;
+            margin: 0;
+        }
+
+        .catatan-area {
+            padding: 16px;
+        }
+
+        .catatan-input-line {
+            display: flex;
+            align-items: flex-start; 
+        }
+
+        .catatan-icon-img {
+            width: 20px; 
+            height: 20px;
+            object-fit: contain; 
+            margin-right: 12px;
+            margin-top: 0;
+            opacity: 0.7; 
+        }
+
+        .catatan-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            resize: none; 
+            padding: 0;
+            line-height: 1.4; 
+        }
+
+        .catatan-input::placeholder {
+            color: #B0B0B0;
+            font-size: 15px;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 12px;
+            color: #AAA;
+            margin-top: 8px; 
+            margin-bottom: 0;
+        }
+
+        /* * ======================================
+         * SUMBER DANA (KEMBALI KE STATIS)
+         * ======================================
+         */
+        .source-card {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 14px 16px; 
+        }
+
+        .source-details {
+            display: flex;
+            align-items: center;
+            flex-grow: 1; 
+        }
+
+        .bank-logo {
+            width: 70px; 
+            height: auto; 
+            margin-right: 16px; 
+            border-radius: 4px; 
+        }
+
+        .source-info {
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .source-info .account-number {
+            margin: 0 0 2px 0; 
+            font-size: 15px;
+            font-weight: 600; 
+            color: #111; 
+        }
+
+        .source-info .account-name {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 500; 
+            color: #333; 
+        }
+
+        .source-info .balance {
+            font-weight: 500; 
+            color: #333;
+            font-size: 15px;
+            margin-top: 4px; 
+            font-family: 'FontAngkaUser', sans-serif; 
+        }
+
+        .change-button {
+            font-size: 14px;
+            font-weight: 500; 
+            color: #007AFF; 
+            text-decoration: none;
+            padding: 4px 8px; 
+            margin-left: 12px; 
+        }
+
+        /* * ======================================
+         * 3. FOOTER
+         * ======================================
+         */
+        .app-footer {
+            background-color: #F8F9FB;
+            padding: 16px;
+            border-top: 1px solid #EAEAEA;
+            box-shadow: none; 
+            position: sticky;
+            bottom: 0;
+            z-index: 50; 
+        }
+
+        .continue-button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px; 
+            border: none;
+            font-size: 16px;
+            font-weight: 500; 
+            background-color: #E9ECEF;
+            color: #ADB5BD;
+            cursor: not-allowed; 
+            transition: background-color 0.3s ease;
+        }
+
+        .continue-button:not(:disabled) {
+            background-color: #007AFF;
+            color: white;
+            cursor: pointer;
+        }
+
+
+        /* * ======================================
+         * CSS OVERLAY PIN
+         * ======================================
+         */
+        .pin-overlay {
+            display: none; 
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); 
+            z-index: 200; 
+            flex-direction: column;
+        }
+
+        .pin-overlay .app-header {
+            background-color: transparent;
+            position: static; 
+        }
+
+        .pin-content-top {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px; 
+            color: white; 
+        }
+
+        .pin-content-top h2 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .pin-dots {
+            display: flex;
+            gap: 16px; 
+            margin-top: 24px;
+        }
+
+        .pin-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid white; 
+            background-color: transparent;
+            transition: background-color 0.2s ease;
+        }
+
+        .pin-dot.filled {
+            background-color: white;
+        }
+
+        .forgot-pin-button {
+            margin-top: 24px;
+            background-color: rgba(120, 120, 128, 0.4); 
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .numpad-footer {
+            padding: 20px;
+        }
+
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 16px;
+            column-gap: 32px;
+        }
+
+        .numpad-button {
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: 500;
+            padding: 16px 0; 
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .numpad .blank {
+            visibility: hidden;
+        }
+
+        .numpad-button.backspace {
+            font-size: 24px; 
+        }
+        
+        /* * ======================================
+         * CSS HALAMAN BUKTI TRANSFER (GAYA POLOS)
+         * ======================================
+         */
+
+        .receipt-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F8F9FB; /* <-- KEMBALI KE PUTIH POLOS */
+            z-index: 300; 
+            flex-direction: column;
+            overflow-y: auto; /* Pastikan bisa scroll */
+        }
+
+        .receipt-header {
+            background-color: #007AFF; 
+            color: white;
+            padding: 24px;
+            text-align: center;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
+        .receipt-header img.icon-success {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 16px;
+        }
+        .receipt-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+        }
+        .receipt-header p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .receipt-content {
+            flex-grow: 1;
+        }
+
+        .receipt-card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            margin: -20px 16px 20px 16px; 
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow normal */
+            color: #333;
+            position: relative; 
+            z-index: 10;
+        }
+
+        .receipt-card p.total-title {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 4px 0;
+        }
+        .receipt-card p.total-amount {
+            text-align: center;
+            font-size: 32px; 
+            font-weight: 700;
+            color: #365a92; 
+            margin: 0 0 20px 0;
+            font-family: 'FontAngkaUser', sans-serif; /* <-- PERUBAHAN 1: FONT DIUBAH */
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .receipt-row .label {
+            color: #666;
+        }
+        .receipt-row .value {
+            color: #111;
+            font-weight: 500;
+        }
+
+        .receipt-divider {
+            border: none;
+            height: 1px;
+            background-color: #F0F0F0;
+            margin: 16px 0;
+        }
+
+        .receipt-party h4 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111; /* <-- PERUBAHAN 2: WARNA DIUBAH KE HITAM */
+            margin: 0 0 12px 0;
+        }
+        .receipt-party .party-details {
+            display: flex;
+            align-items: center;
+        }
+        .receipt-party .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #E6F2FB; 
+            color: #007AFF;
+            font-weight: 500;
+            font-size: 18px;
+            margin-right: 12px;
+            display: grid;
+            place-items: center;
+            overflow: hidden; 
+        }
+        .receipt-party .avatar img { 
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .receipt-party .info {
+            line-height: 1.5;
+        }
+        .receipt-party .info p {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #111;
+        }
+        .receipt-party .info span {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .receipt-details-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007AFF;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .products-section {
+            padding: 0 16px 20px 16px; 
+        }
+        .products-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111;
+            margin-top: 24px; 
+            margin-bottom: 16px;
+            margin-left: 4px;
+        }
+        .products-row {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto; 
+            padding-bottom: 10px; 
+        }
+        .product-card {
+            flex: 0 0 200px; 
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .product-card img {
+            width: 40px; 
+            height: auto;
+            margin-bottom: 8px;
+        }
+        .product-card p {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+            color: #111;
+        }
+        .product-card span {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .ojk-info-container {
+            text-align: center;
+            margin: 20px 10px 0 10px;
+            padding-bottom: 10px;
+        }
+        .ojk-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px; 
+        }
+        .ojk-logos img {
+            height: 62px;
+            width: auto;
+            opacity: 0.8;
+        }
+        .ojk-info-text {
+            font-size: 13px;
+            font-weight: 500; 
+            color: #D9534F; 
+            opacity: 0.8; 
+            text-align: center; 
+            line-height: 1.5; 
+            margin: 0; 
+            font-style: italic; 
+        }
+
+        /* Footer "Bagikan" & "Selesai" */
+        .receipt-footer {
+            background-color: #fff;
+            padding: 16px;
+            border-top: 1px solid #EAEAEA;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.05); /* Shadow normal */
+            display: flex;
+            gap: 12px;
+            position: sticky; /* Footer menempel */
+            bottom: 0;
+            z-index: 10;
+        }
+        .receipt-footer button {
+            flex: 1; 
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .receipt-footer button img {
+            width: 16px;
+            height: 16px;
+        }
+        .receipt-footer .share-button {
+            background-color: #fff;
+            border: 1px solid #007AFF;
+            color: #007AFF;
+        }
+        .receipt-footer .done-button {
+            background-color: #007AFF;
+            border: 1px solid #007AFF;
+            color: #fff;
+        }
+        
+        .loading-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.25); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); 
+            z-index: 500; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .loading-dots-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; 
+            margin-bottom: 16px;
+            height: 20px; 
+        }
+        .loading-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5); 
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both; 
+        }
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+        .loading-dot:nth-child(3) { animation-delay: 0s; }
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+                background-color: rgba(255, 255, 255, 0.5); 
+            }
+            40% {
+                transform: scale(1);
+                background-color: #FFFFFF; 
+            }
+        }
+        .loading-overlay p {
+            font-size: 15px;
+            font-weight: 500;
+            color: #FFFFFF; 
+            margin: 0;
+        }
+        
+        
+        /* * ======================================
+         * CSS SETUP OVERLAY (BARU)
+         * ======================================
+         */
+        .setup-overlay {
+            display: none; /* Sembunyi by default, JS akan Tampilkan */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F8F9FB; /* Sama seperti body */
+            z-index: 1000; /* Di atas segalanya */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .setup-card {
+            width: 100%;
+            max-width: 450px;
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+        .setup-card h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: #111;
+        }
+        .setup-input-group {
+            margin-bottom: 16px;
+        }
+        .setup-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .setup-input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        .setup-button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px; 
+            border: none;
+            font-size: 16px;
+            font-weight: 500; 
+            background-color: #007AFF;
+            color: white;
+            cursor: pointer;
+            margin-top: 24px;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    
+    <div class="setup-overlay" id="setup-overlay">
+        <div class="setup-card">
+            <form id="setup-form">
+                <h2>Pengaturan Penerima</h2>
+                
+                <div class="setup-input-group">
+                    <label for="setup-bank-name">Nama Bank Penerima</label>
+                    <input type="text" id="setup-bank-name" class="setup-input" placeholder="Contoh: BSI" required>
+                </div>
+                
+                <div class="setup-input-group">
+                    <label for="setup-account-name">Nama Penerima</label>
+                    <input type="text" id="setup-account-name" class="setup-input" placeholder="Contoh: HERMANTO" required>
+                </div>
+                
+                <div class="setup-input-group">
+                    <label for="setup-account-number">Nomor Rekening Penerima</label>
+                    <input type="tel" id="setup-account-number" class="setup-input" placeholder="Contoh: 7124 7425 06" required>
+                </div>
+                
+                <div class="setup-input-group">
+                    <label for="setup-min-limit">Limit Transfer Minimum</label>
+                    <input type="tel" inputmode="numeric" id="setup-min-limit" class="setup-input" placeholder="Contoh: 10.000.000" required>
+                </div>
+                
+                <button type="submit" class="setup-button">Simpan & Mulai</button>
+            </form>
+        </div>
+    </div>
+    <form class="app-container" id="transfer-form">
+
+        <header class="app-header">
+            <a href="#" class="back-icon">&#8592;</a> 
+            <h1>Masukkan Nominal</h1>
+        </header>
+
+        <main class="app-content">
+            <div class="card recipient-info">
+                <div class="recipient-avatar" id="main-recipient-avatar">?</div>
+                <div class="recipient-details">
+                    <h3 id="main-recipient-name">NAMA PENERIMA</h3>
+                    <p id="main-recipient-info">NAMA BANK &bull; 0000</p>
+                </div>
+            </div>
+            <div class="card toggle-card">
+                <label for="save-recipient">Tambahkan ke Daftar Tersimpan</label>
+                <label class="switch">
+                    <input type="checkbox" id="save-recipient">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <span class="section-title">Metode Transfer</span>
+            <div class="card select-wrapper">
+                <select>
+                    <option value="bi-fast">Transfer BI-FAST</option>
+                </select>
+            </div>
+            <span class="section-title">Nominal Transfer</span>
+            <div class="card card-nominal">
+                <label class="nominal-input-area" for="input-nominal">
+                    <div class="nominal-input-wrapper">
+                        <span>Rp</span>
+                        <input type="tel" inputmode="numeric" class="nominal-input" placeholder="0" id="input-nominal">
+                    </div>
+                    <p class="nominal-minimum">Minimum transfer Rp10.000</p> </label>
+                <hr class="card-divider">
+                <div class="catatan-area">
+                    <div class="catatan-input-line">
+                        <img src="copy_icon.png" alt="Ikon Catatan" class="catatan-icon-img"> 
+                        <textarea class="catatan-input" rows="1" placeholder="Tulis catatan (opsional)" maxlength="40"></textarea>
+                    </div>
+                    <p class="char-counter">0/40</p>
+                </div>
+            </div>
+            <span class="section-title">Pakai Transfer Terjadwal</span>
+            <div class="card toggle-card">
+                <label for="scheduled-transfer" style="font-size: 14px; color: #555;">
+                    Buat transfermu otomatis sesuai jadwal...
+                </label>
+                <label class="switch">
+                    <input type="checkbox" id="scheduled-transfer">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <span class="section-title">Sumber Dana</span>
+            <div class="card source-card">
+                <div class="source-details">
+                    <img src="bri-simpedes.png" alt="Logo BRI Simpedes" class="bank-logo">
+                    <div class="source-info">
+                        <p class="account-number">2771 0101 **** 539</p>
+                        <p class="account-name">PT ORXSI.STORE, inc</p>
+                        <p class="balance">Rp1.033.389.500,00</p>
+                    </div>
+                </div>
+                <a href="#" class="change-button">Ganti</a>
+            </div>
+            <div style="height: 20px;"></div>
+        </main>
+
+        <footer class="app-footer">
+            <button type="submit" class="continue-button" id="continue-button" disabled>Lanjutkan</button>
+        </footer>
+    </form>
+    
+    
+    <div class="pin-overlay" id="pin-overlay">
+        <header class="app-header">
+            <a href="#" class="back-icon" id="pin-back-button">&#8592;</a> 
+            <h1>PIN</h1>
+        </header>
+        <main class="pin-content-top">
+            <h2>Masukkan PIN</h2>
+            <div class="pin-dots">
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+            </div>
+            <button class="forgot-pin-button">Lupa PIN?</button>
+        </main>
+        <footer class="numpad-footer">
+            <div class="numpad">
+                <button class="numpad-button">1</button>
+                <button class="numpad-button">2</button>
+                <button class="numpad-button">3</button>
+                <button class="numpad-button">4</button>
+                <button class="numpad-button">5</button>
+                <button class="numpad-button">6</button>
+                <button class="numpad-button">7</button>
+                <button class="numpad-button">8</button>
+                <button class="numpad-button">9</button>
+                <div class="blank"></div>
+                <button class="numpad-button">0</button>
+                <button class="numpad-button backspace">&#8592;</button> 
+            </div>
+        </footer>
+    </div>
+    
+    
+    <div class="receipt-overlay" id="receipt-overlay">
+        <div class="receipt-content">
+            <div class="receipt-header">
+                <img src="icon-success.gif" alt="Berhasil" class="icon-success">
+                <h2>Transaksi Gagal</h2>
+                <p id="receipt-timestamp">22 Januari 2024, 12:08:43 WIB</p>
+            </div>
+            <div class="receipt-card">
+                <p class="total-title">Total Transaksi</p>
+                <p class="total-amount" id="receipt-total-amount">Rp0</p>
+                <div class="receipt-row">
+                    <span class="label">No. Ref</span>
+                    <span class="value">617693768874</span>
+                </div>
+                <hr class="receipt-divider">
+                <div class="receipt-party">
+                    <h4>Sumber Dana</h4>
+                    <div class="party-details">
+                        <div class="avatar" id="receipt-source-avatar">?</div> 
+                        <div class="info">
+                            <p id="receipt-source-name">NAMA SUMBER</p> 
+                            <span id="receipt-source-info">BANK &bull; 0000 **** 000</span>
+                        </div>
+                    </div>
+                </div>
+                <hr class="receipt-divider">
+                <div class="receipt-party">
+                    <h4>Tujuan</h4>
+                    <div class="party-details">
+                        <div class="avatar" id="receipt-dest-avatar">?</div> <div class="info">
+                            <p id="receipt-dest-name">NAMA TUJUAN</p> 
+                            <span id="receipt-dest-info">BANK &bull; 0000 **** 000</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="receipt-details-link">Lihat Detail Transaksi &#8964;</a>
+            </div>
+            <div class="products-section">
+                <h3>Produk Pilihan Untukmu</h3>
+                <div class="products-row">
+                    <div class="product-card">
+                        <img src="logo-rdn.png" alt="RDN">
+                        <p>Rekening Dana Nasabah (RDN)</p>
+                        <span>Raih kestabilan finansial di...</span>
+                    </div>
+                    <div class="product-card">
+                        <img src="logo-britama.png" alt="BritAma">
+                        <p>Tabungan BritAma</p>
+                        <span>Nikmati kebebasan...</span>
+                    </div>
+                </div>
+                
+                <div class="ojk-info-container">
+                    <p class="ojk-info-text">
+                        "Rekening Brimo yang berlabelkan PT wajib memenuhi kriteria (Transfer Type) yaitu transfer minimal <span id="dynamic-ojk-limit">Rp10.000.000</span> Agar tetap bisa memenuhi peraturan OJK (Otoritas Jasa Keuangan)"
+                    </p>
+                    <div class="ojk-logos">
+                        <img src="bi.png" alt="Logo BI">
+                        <img src="ojk.png" alt="Logo OJK">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="receipt-footer">
+            <button class="share-button">
+                <img src="icon-share-blue.png" alt="Bagikan">
+                Bagikan
+            </button>
+            <button class="done-button" id="receipt-done-button">
+                <img src="icon-checkmark-white.png" alt="Selesai">
+                Selesai
+            </button>
+        </footer>
+    </div>
+    
+    
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-box">
+            <div class="loading-dots-container">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
+            <p>Sedang memproses...</p>
+        </div>
+    </div>
+    
+    
+    <script>
+        // --- GRAB SEMUA ELEMEN ---
+        // Elemen Halaman Utama
+        const catatanInput = document.querySelector('.catatan-input');
+        const charCounterDisplay = document.querySelector('.char-counter');
+        const nominalInput = document.querySelector('#input-nominal');
+        const minTextElement = document.querySelector('.nominal-minimum');
+        const continueButton = document.querySelector('#continue-button'); 
+        const transferForm = document.querySelector('#transfer-form');
+        
+        // Elemen Penerima (Baru)
+        const mainRecipientAvatar = document.querySelector('#main-recipient-avatar');
+        const mainRecipientName = document.querySelector('#main-recipient-name');
+        const mainRecipientInfo = document.querySelector('#main-recipient-info');
+
+        // Elemen PIN
+        const pinOverlay = document.querySelector('#pin-overlay');
+        const pinBackButton = document.querySelector('#pin-back-button');
+        const allNumpadButtons = document.querySelectorAll('.numpad-button');
+        const pinDots = document.querySelectorAll('.pin-dot');
+        
+        // Elemen Bukti Transfer
+        const receiptOverlay = document.querySelector('#receipt-overlay');
+        const receiptDoneButton = document.querySelector('#receipt-done-button');
+        
+        // Elemen Loading
+        const loadingOverlay = document.querySelector('#loading-overlay');
+        
+        // Elemen Setup (Baru)
+        const setupOverlay = document.querySelector('#setup-overlay');
+        const setupForm = document.querySelector('#setup-form');
+        const setupMinLimitInput = document.querySelector('#setup-min-limit'); // Diubah ke min
+
+        // --- Variabel ---
+        let currentPin = "";
+        const MAX_PIN_LENGTH = 6;
+        
+        // --- Variabel LIMIT (Baru) ---
+        let MIN_TRANSFER_LIMIT = 10000; // Default
+        const originalMinColor = '#888'; 
+
+        // --- FUNGSI FORMAT ANGKA (BARU) ---
+        function formatInputAsNumber(e) {
+            let rawValue = e.target.value.replace(/[^0-9]/g, '');
+            
+            let selectionStart = e.target.selectionStart;
+            let originalLength = e.target.value.length;
+
+            if (rawValue === '') {
+                e.target.value = '';
+            } else {
+                let numericValue = parseInt(rawValue, 10);
+                let formattedValue = new Intl.NumberFormat('id-ID').format(numericValue);
+                e.target.value = formattedValue;
+                
+                // Logika untuk mempertahankan posisi kursor
+                let newLength = formattedValue.length;
+                let lengthDiff = newLength - originalLength;
+                let newSelectionStart = selectionStart + lengthDiff;
+                
+                if (selectionStart > 0 || lengthDiff > 0) {
+                     if (lengthDiff < 0 && selectionStart + lengthDiff > 0) {
+                         newSelectionStart = selectionStart + lengthDiff;
+                     } else if (lengthDiff > 0) {
+                         newSelectionStart = selectionStart + lengthDiff;
+                     } else {
+                         newSelectionStart = selectionStart;
+                     }
+                     if (lengthDiff === -1 && (originalLength - selectionStart) % 4 === 0) {
+                        newSelectionStart = selectionStart - 1;
+                     }
+                     newSelectionStart = Math.max(0, newSelectionStart);
+                     e.target.setSelectionRange(newSelectionStart, newSelectionStart);
+                }
+            }
+        }
+        
+        // Terapkan format angka ke input limit di setup
+        setupMinLimitInput.addEventListener('input', formatInputAsNumber);
+
+
+        // --- FUNGSI PENGATURAN (BARU) ---
+
+        // Fungsi ini sekarang HANYA menerapkan pengaturan, tidak mengecek
+        function applySettingsToMainPage() {
+            // Sembunyikan overlay setup
+            setupOverlay.style.display = 'none';
+            
+            // Ambil data dari localStorage
+            const bankName = localStorage.getItem('recipientBankName') || 'NAMA BANK';
+            const accName = localStorage.getItem('recipientName') || 'NAMA PENERIMA';
+            const accNum = localStorage.getItem('recipientNumber') || '0000 0000';
+            MIN_TRANSFER_LIMIT = parseInt(localStorage.getItem('minLimit') || '10000', 10); // Set limit minimum global
+            
+            // Masukkan data ke UI Penerima
+            mainRecipientAvatar.textContent = accName.charAt(0).toUpperCase() || '?';
+            mainRecipientName.textContent = accName.toUpperCase();
+            mainRecipientInfo.textContent = `${bankName} ${accNum}`;
+            
+            // Perbarui teks minimum di halaman utama (PERUBAHAN TULISAN DI SINI)
+            const formattedMin = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(MIN_TRANSFER_LIMIT).replace('Rp', 'Rp');
+            minTextElement.textContent = `Minimum transfer ${formattedMin}`;
+        }
+
+        // Fungsi untuk menyimpan data dari form setup
+        function saveUserData(e) {
+            e.preventDefault();
+            
+            const bankName = document.getElementById('setup-bank-name').value;
+            const accName = document.getElementById('setup-account-name').value;
+            const accNum = document.getElementById('setup-account-number').value;
+            const minLimit = setupMinLimitInput.value.replace(/[^0-9]/g, ''); // Ambil nilai bersih
+            
+            localStorage.setItem('recipientBankName', bankName);
+            localStorage.setItem('recipientName', accName);
+            localStorage.setItem('recipientNumber', accNum);
+            localStorage.setItem('minLimit', minLimit);
+            
+            // Terapkan data ke UI (ini juga akan menyembunyikan overlay)
+            applySettingsToMainPage();
+        }
+
+        // --- EVENT LISTENER BARU ---
+        // Selalu tampilkan setup overlay saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            setupOverlay.style.display = 'flex';
+        });
+        
+        // Simpan data saat form setup disubmit
+        setupForm.addEventListener('submit', saveUserData);
+
+
+        // --- LOGIKA CATATAN ---
+        if (catatanInput && charCounterDisplay) {
+            catatanInput.addEventListener('input', () => {
+                const count = catatanInput.value.length;
+                const max = catatanInput.maxLength;
+                charCounterDisplay.textContent = `${count}/${max}`;
+                catatanInput.style.height = 'auto';
+                catatanInput.style.height = (catatanInput.scrollHeight) + 'px';
+            });
+            catatanInput.dispatchEvent(new Event('input'));
+        }
+        
+        // --- LOGIKA NOMINAL (LOGIKA TOMBOL LANJUTKAN DIPERBAIKI) ---
+        if (nominalInput && minTextElement && continueButton) {
+            
+            // Panggil fungsi format angka
+            nominalInput.addEventListener('input', (e) => {
+                formatInputAsNumber(e); // Format dulu
+                
+                // Setelah diformat, ambil nilainya untuk validasi
+                let rawValue = e.target.value.replace(/[^0-9]/g, '');
+                let numericValue = rawValue === '' ? 0 : parseInt(rawValue, 10);
+
+                // Teks error baru berdasarkan limit minimum dinamis (PERUBAHAN TULISAN DI SINI)
+                const formattedMin = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(MIN_TRANSFER_LIMIT).replace('Rp', 'Rp');
+                const minText = `Minimum transfer ${formattedMin}`;
+
+                if (numericValue === 0) {
+                    // Kasus 1: Input kosong (placeholder state)
+                    minTextElement.textContent = minText; // Tampilkan limit min
+                    minTextElement.style.color = originalMinColor;
+                    continueButton.disabled = true; // Nonaktifkan jika 0
+                } else if (numericValue >= MIN_TRANSFER_LIMIT) {
+                    // Kasus 2: Valid (di atas atau sama dengan minimum)
+                    minTextElement.textContent = minText; // Tetap tampilkan
+                    minTextElement.style.color = originalMinColor;
+                    continueButton.disabled = false; // Aktifkan
+                } else {
+                    // Kasus 3: Di bawah minimum
+                    minTextElement.textContent = minText; // Tampilkan limit
+                    minTextElement.style.color = 'red'; // Beri warna merah
+                    continueButton.disabled = false; // <-- PERUBAHAN DI SINI: Tetap aktif
+                }
+            });
+        }
+        
+        
+        // --- LOGIKA OVERLAY PIN ---
+        if (transferForm && pinOverlay && pinBackButton) {
+            transferForm.addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                pinOverlay.style.display = 'flex';
+            });
+            
+            pinBackButton.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                pinOverlay.style.display = 'none';
+                resetPin();
+            });
+        }
+        
+        // --- LOGIKA NUMPAD PIN ---
+        function updatePinDots() {
+            const pinLength = currentPin.length;
+            pinDots.forEach((dot, index) => {
+                if (index < pinLength) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            });
+        }
+
+        function handlePinInput(digit) {
+            if (currentPin.length < MAX_PIN_LENGTH) {
+                currentPin += digit;
+                updatePinDots();
+                
+                if (currentPin.length === MAX_PIN_LENGTH) {
+                    console.log("PIN Selesai:", currentPin);
+                    
+                    setTimeout(() => {
+                        pinOverlay.style.display = 'none'; 
+                        resetPin();
+                        
+                        if (loadingOverlay) {
+                            loadingOverlay.style.display = 'flex';
+                        }
+                        
+                        updateReceiptData(); 
+
+                        setTimeout(() => {
+                            if (loadingOverlay) {
+                                loadingOverlay.style.display = 'none';
+                            }
+                            if (receiptOverlay) {
+                                receiptOverlay.style.display = 'flex'; 
+                                window.scrollTo(0, 0); 
+                            }
+                        }, 2000); 
+
+                    }, 500); 
+                }
+            }
+        }
+
+        function handleBackspace() {
+            if (currentPin.length > 0) {
+                currentPin = currentPin.slice(0, -1); 
+                updatePinDots();
+            }
+        }
+        
+        function resetPin() {
+            currentPin = "";
+            updatePinDots();
+        }
+
+        allNumpadButtons.forEach(button => {
+            if (button.classList.contains('backspace')) {
+                button.addEventListener('click', handleBackspace);
+            } else if (!button.classList.contains('blank')) {
+                button.addEventListener('click', () => {
+                    handlePinInput(button.textContent.trim());
+                });
+            }
+        });
+
+        // --- FUNGSI UPDATE BUKTI TRANSFER (DIKOREKSI) ---
+        function updateReceiptData() {
+            // 1. Ambil Data
+            const nominalValue = nominalInput.value;
+            
+            // Ambil data SUMBER (dari HTML statis)
+            const sourceName = document.querySelector('.source-info .account-name').textContent.trim();
+            const sourceAccountNum = document.querySelector('.source-info .account-number').textContent.trim();
+            const sourceBank = "BANK BRI"; // Hardcode berdasarkan logo
+            
+            // Ambil data TUJUAN (dari HTML dinamis)
+            const destName = mainRecipientName.textContent.trim();
+            const destAccountInfo = mainRecipientInfo.textContent.trim();
+            const destAvatar = mainRecipientAvatar.textContent.trim();
+            
+            // Ambil Waktu Saat Ini
+            const now = new Date();
+            const formattedDate = new Intl.DateTimeFormat('id-ID', {
+                day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta'
+            }).format(now);
+            const formattedTime = new Intl.DateTimeFormat('id-ID', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta', timeZoneName: 'short'
+            }).format(now).replace(/\./g, ':');
+            const finalDateTimeString = `${formattedDate}, ${formattedTime}`;
+
+            // 2. Format Data
+            const finalAmount = 'Rp' + nominalValue;
+            
+            // Format Sumber
+            const maskedSourceAccount = sourceAccountNum.substring(0, 4) + ' **** ' + sourceAccountNum.substring(sourceAccountNum.length - 3);
+            const finalSourceInfo = `${sourceBank} &bull; ${maskedSourceAccount}`;
+            const sourceInitial = sourceName.replace('@','').charAt(0).toUpperCase() || '?';
+
+            // Format Tujuan
+            const destParts = destAccountInfo.split(' ');
+            const destBank = destParts.length > 0 ? destParts[0] : '';
+            const destAccount = destParts.slice(1).join(' ');
+            const finalDestInfo = `${destBank} &bull; ${destAccount}`;
+
+            // 3. Ambil Elemen di Bukti Transfer (Gunakan ID)
+            const receiptTimestampEl = document.querySelector('#receipt-timestamp');
+            const receiptAmountEl = document.querySelector('#receipt-total-amount');
+            const receiptOjkLimitEl = document.querySelector('#dynamic-ojk-limit'); // <-- AMBIL ELEMEN BARU
+            
+            const receiptSourceAvatar = document.querySelector('#receipt-source-avatar');
+            const receiptSourceName = document.querySelector('#receipt-source-name');
+            const receiptSourceInfo = document.querySelector('#receipt-source-info');
+            
+            const receiptDestAvatar = document.querySelector('#receipt-dest-avatar');
+            const receiptDestName = document.querySelector('#receipt-dest-name');
+            const receiptDestInfo = document.querySelector('#receipt-dest-info');
+
+            // 4. Set Data Baru ke Bukti Transfer
+            receiptTimestampEl.textContent = finalDateTimeString;
+            receiptAmountEl.textContent = finalAmount;
+            
+            // Set Data Sumber
+            receiptSourceAvatar.textContent = sourceInitial;
+            receiptSourceName.textContent = sourceName.toUpperCase(); 
+            receiptSourceInfo.innerHTML = finalSourceInfo; 
+            
+            // Set Data Tujuan
+            receiptDestAvatar.textContent = destAvatar; 
+            receiptDestName.textContent = destName; 
+            receiptDestInfo.innerHTML = finalDestInfo; 
+            
+            // Set Data Info OJK (BARU)
+            const formattedOjkLimit = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(MIN_TRANSFER_LIMIT);
+            receiptOjkLimitEl.textContent = formattedOjkLimit;
+        }
+
+        // --- LOGIKA TOMBOL SELESAI (BUKTI TRANSFER) ---
+        if (receiptOverlay && receiptDoneButton) {
+            receiptDoneButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                receiptOverlay.style.display = 'none';
+                
+                // Reset halaman utama
+                nominalInput.value = ''; 
+                continueButton.disabled = true; 
+                
+                // Reset teks minimum ke nilai yang benar (PERUBAHAN TULISAN DI SINI)
+                const formattedMin = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(MIN_TRANSFER_LIMIT).replace('Rp', 'Rp');
+                minTextElement.textContent = `Minimum transfer ${formattedMin}`;
+                minTextElement.style.color = originalMinColor;
+
+                catatanInput.value = ''; // Reset catatan
+                catatanInput.dispatchEvent(new Event('input')); // Update counter catatan
+                
+                window.scrollTo(0, 0);
+                
+                // Tampilkan kembali layar setup
+                setupOverlay.style.display = 'flex';
+            });
+        }
+    </script>
+
+</body>
+</html>
