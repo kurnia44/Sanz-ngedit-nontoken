@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer UI - Solusi Lengkap</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+    
+    <div class="token-overlay" id="token-overlay">
+        <video autoplay muted loop id="token-bg-video">
+            <source src="video_background.mp4" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+        </video>
+        <div class="token-card">
+            <h2>Verifikasi Token</h2>
+            <p>Silakan masukkan token untuk melanjutkan.</p>
+            <form id="token-form">
+                <input type="text" id="token-input" class="token-input" placeholder="Masukkan Token" required>
+                <div class="token-error" id="token-error"></div>
+         
+                <button type="submit" class="token-button" id="token-submit-button">Masuk</button>
+                
+                <a href="https://t.me/developersetan" target="_blank" class="token-order-button">
+                    🛒 Order Token Disini
+                </a>
+                
+                <div class="token-loader" id="token-loader">
+                    <style>
+                        /* Style khusus loader token jika ingin tetap inline, 
+                           atau bisa dipindah ke style.css juga */
+                        .token-loader .loading-dot { background-color: rgba(0,0,0,0.3);
+                        animation-name: bounce-dark; }
+                        .token-loader .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+                        .token-loader .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+                        .token-loader .loading-dot:nth-child(3) { animation-delay: 0s; }
+                        @keyframes bounce-dark {
+                            0%, 80%, 100% { transform: scale(0); background-color: rgba(0,0,0,0.3); }
+                            40% { transform: scale(1); background-color: #007AFF; }
+                        }
+                    </style>
+                    <div class="loading-dots-container">
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="setup-overlay" id="setup-overlay">
+        <div class="setup-card">
+            <form id="setup-form">
+                <h2>Pengaturan Penerima</h2>
+                
+                <div class="setup-input-group">
+                    <label for="setup-bank-name">Nama Bank Penerima (Lihat contoh jika E-Wallet)</label>
+                    <input type="text" id="setup-bank-name" class="setup-input" placeholder="Contoh: BANK BSI / GOPAY, DANA TOPUP, OVO TOPUP" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="setup-input-group">
+                    <label for="setup-account-name">Nama Penerima (Untuk E-Wallet lihat contoh)</label>
+                    <input type="text" id="setup-account-name" class="setup-input" placeholder="Contoh: PRABOWO / DNID - PRABOWO / OVO - PRABOWO" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="setup-input-group">
+                    <label for="setup-account-number">Nomor Rekening Penerima (Lihat Contoh jika BANK / E-Wallet)</label>
+                    <input type="tel" id="setup-account-number" class="setup-input" placeholder="Contoh: 2770 6767 534 / 0812-1212-1212" required>
+                </div>
+                
+                <div class="setup-input-group">
+                    <label for="setup-min-limit">Limit Transfer Minimum</label>
+                    <input type="tel" inputmode="numeric" id="setup-min-limit" class="setup-input" placeholder="Contoh: 10.000.000" required>
+                </div>
+                
+                <button type="submit" class="setup-button">Simpan & Mulai</button>
+            </form>
+        </div>
+    </div>
+
+    <form class="app-container" id="transfer-form">
+        <header class="app-header">
+            <a href="#" class="back-icon">←</a> 
+            <h1>Masukkan Nominal</h1>
+        </header>
+
+        <main class="app-content">
+            <div class="card recipient-info">
+                <div class="recipient-avatar" id="main-recipient-avatar">?</div>
+                <div class="recipient-details">
+                    <h3 id="main-recipient-name">NAMA PENERIMA</h3>
+                    <p id="main-recipient-bank">NAMA BANK</p>
+                    <p id="main-recipient-number">NOMOR REKENING</p>
+                </div>
+            </div>
+
+            <div class="card toggle-card" style="background-color: #F9F9F9;">
+                <label for="save-recipient">Tambahkan ke Daftar Tersimpan</label>
+                <label class="switch">
+                    <input type="checkbox" id="save-recipient">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <span class="section-title">Metode Transfer</span>
+            <div class="card select-wrapper">
+                <select>
+                    <option value="bi-fast">Transfer BI-FAST</option>
+                </select>
+            </div>
+     
+            <span class="section-title">Nominal Transfer</span>
+
+            <div class="card card-nominal">
+                <label class="nominal-input-area" for="input-nominal">
+                    <div class="nominal-input-wrapper">
+                        <span>Rp</span>
+                        <input type="tel" inputmode="numeric" class="nominal-input" placeholder="0" id="input-nominal">
+                    </div>
+                    <p class="nominal-minimum">Minimum transfer adalah Rp10.000</p> 
+                </label>
+                
+                <hr class="card-divider">
+                <div class="catatan-area">
+                    <div class="catatan-input-line">
+                        <img src="copy_icon.png" alt="Ikon Catatan" class="catatan-icon-img"> 
+                        <textarea class="catatan-input" rows="1" placeholder="Tulis catatan (opsional)" maxlength="40"></textarea>
+                    </div>
+                    <p class="char-counter">0/40</p>
+                </div>
+            </div>
+            
+            <span class="section-title">Pakai Transfer Terjadwal</span>
+            <div class="card toggle-card">
+                <label for="scheduled-transfer" style="font-size: 14px; color: #555;">
+                    Buat transfermu otomatis sesuai jadwal...
+                </label>
+                <label class="switch">
+                    <input type="checkbox" id="scheduled-transfer">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <span class="section-title" id="sumber-dana-title">Sumber Dana</span>
+
+            <div class="card source-card">
+                <div class="source-details">
+                    <img src="bri-simpedes.png" alt="Logo BRI Simpedes" class="bank-logo">
+                    <div class="source-info">
+                        <p class="account-number" id="source-account-number">2770 0101 **** 539</p>
+                        <p class="account-name" id="source-account-name">PT ORSXI.STORE, INC</p>
+                        <p class="balance" id="source-balance">Rp583.389.000,00</p>
+                    </div>
+                </div>
+                <a href="#" class="change-button">Ganti</a>
+            </div>
+            <div style="height: 20px;"></div>
+        </main>
+
+        <footer class="app-footer">
+            <button type="submit" class="continue-button" id="continue-button" disabled>Lanjutkan</button>
+        </footer>
+    </form>
+    
+    <div class="pin-overlay" id="pin-overlay">
+        <header class="app-header">
+            <a href="#" class="back-icon" id="pin-back-button">←</a> 
+            <h1>PIN</h1>
+        </header>
+        <main class="pin-content-top">
+            <h2>Masukkan PIN</h2>
+            <div class="pin-dots">
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+            </div>
+            <button class="forgot-pin-button">Lupa PIN?</button>
+        </main>
+        <footer class="numpad-footer">
+            <div class="numpad">
+                <button class="numpad-button">1</button>
+                <button class="numpad-button">2</button>
+                <button class="numpad-button">3</button>
+                <button class="numpad-button">4</button>
+                <button class="numpad-button">5</button>
+                <button class="numpad-button">6</button>
+                <button class="numpad-button">7</button>
+                <button class="numpad-button">8</button>
+                <button class="numpad-button">9</button>
+                <div class="blank"></div>
+                <button class="numpad-button">0</button>
+                <button class="numpad-button backspace">←</button> 
+            </div>
+        </footer>
+    </div>
+    
+    <div class="receipt-overlay" id="receipt-overlay">
+        <div class="receipt-content">
+            <div class="receipt-header">
+                <img src="icon-success.gif" alt="Status" class="icon-success" id="receipt-status-icon">
+                <h2 id="receipt-status-title">Transaksi Gagal</h2>
+                <p id="receipt-timestamp">22 Januari 2024, 12:08:43 WIB</p>
+            </div>
+            
+            <div class="receipt-card-shadow-wrapper">
+                <div class="receipt-card">
+                    <p class="total-title">Total Transaksi</p>
+                    <p class="total-amount" id="receipt-total-amount">Rp0</p>
+            
+                    <div class="receipt-row" id="receipt-ref-row">
+                        <span class="label">No. Ref</span>
+                        <span class="value" id="receipt-ref-number">617693768874</span>
+                    </div>
+                    <div class="receipt-party-wrapper">
+                        <div class="receipt-party">
+                            <h4>Sumber Dana</h4>
+                            <div class="party-details">
+                                <div class="avatar" id="receipt-source-avatar">?</div> 
+                                <div class="info">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <p id="receipt-source-name">NAMA SUMBER</p> 
+                                        <img src="centang.png" alt="Verified" style="width: 16px; height: 16px;">
+                                    </div>
+                                    <p id="receipt-source-bank" class="receipt-info-line">BANK</p>
+                                    <p id="receipt-source-number" class="receipt-info-line">0000 **** 000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="receipt-divider-inner">
+                        <div class="receipt-party">
+                            <h4>Tujuan</h4>
+                            <div class="party-details">
+                                <div class="avatar" id="receipt-dest-avatar">?</div> 
+                                <div class="info">
+                                    <p id="receipt-dest-name">NAMA TUJUAN</p> 
+                                    <p id="receipt-dest-bank" class="receipt-info-line">BANK</p>
+                                    <p id="receipt-dest-number" class="receipt-info-line">0000 **** 000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="receipt-expanded-details" id="receipt-expanded-details">
+                        
+                        <div class="receipt-divider-expanded"></div>
+
+                        <div class="receipt-row">
+                            <span class="label">Jenis Transaksi</span>
+                            <span class="value" id="receipt-tx-type">Transfer BRI</span>
+                        </div>
+                        
+                        <div class="receipt-row">
+                            <span class="label">Catatan</span>
+                            <span class="value" id="receipt-notes">-</span>
+                        </div>
+                        
+                        <div class="receipt-row" id="receipt-deposito-wajib-row">
+                            <span class="label">Total Deposito</span>
+                            <span class="value" id="receipt-deposito-wajib">Rp0</span>
+                        </div>
+                        <div class="receipt-row" id="receipt-deposito-kurang-row">
+                            <span class="label">Deposito Kurang</span>
+                            <span class="value" id="receipt-deposito-kurang">Rp0</span>
+                        </div>
+                        <div class="receipt-divider-expanded"></div>
+                        
+                        <div class="receipt-row">
+                            <span class="label">Nominal</span>
+                            <span class="value" id="receipt-nominal-detail">Rp0</span>
+                        </div>
+            
+                        <div class="receipt-row">
+                            <span class="label">Biaya Admin</span>
+                            <span class="value" id="receipt-admin-fee">Rp0</span>
+                        </div>
+
+                        <div class="receipt-divider-expanded"></div>
+
+                        <p class="ojk-info-text">
+                            "Rekening Brimo yang berlabelkan PT wajib memenuhi kriteria (Transfer Type) yaitu transfer minimal <span id="dynamic-ojk-limit">Rp10.000.000</span> Agar tetap bisa memenuhi peraturan OJK (Otoritas Jasa Keuangan)"
+                        </p>
+                        <div class="receipt-info-block">
+                            <p class="info-label">INFORMASI:</p>
+                            <p class="info-text">
+                                Biaya Termasuk PPN (Apabila Dikenakan/Apabila Ada)<br>
+                                PT. Bank Rakyat Indonesia (Persero) Tbk.<br>
+                                Kantor Pusat BRI - Jakarta Pusat<br>
+                                NPWP : 01.001.608.7-033.000
+                            </p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="receipt-details-link" id="receipt-toggle-link">
+                        <span>Lihat Detail Transaksi</span>
+                        <img src="bawah.png" alt="v" class="arrow-down">
+                        <img src="atas.png" alt="^" class="arrow-up">
+                    </a>
+                </div>
+            </div> 
+            
+            <div class="products-section">
+                <h3>Produk Pilihan Untukmu</h3>
+                <div class="products-row">
+                    <div class="product-card">
+                        <img src="logo-rdn.png" alt="RDN">
+                        <p>Rekening Dana Nasabah (RDN)</p>
+                        <span>Raih kestabilan finansial di...</span>
+                    </div>
+                    <div class="product-card">
+                        <img src="logo-britama.png" alt="BritAma">
+                        <p>Tabungan BritAma</p>
+                        <span>Nikmati kebebasan...</span>
+                    </div>
+                </div>
+                
+                <div class="ojk-info-container">
+                    <div class="ojk-logos">
+                        <img src="bi.png" alt="Logo BI">
+                        <img src="ojk.png" alt="Logo OJK">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="receipt-footer">
+            <button class="share-button">
+                <img src="icon-share-blue.png" alt="Bagikan">
+                Bagikan
+            </button>
+            <button class="done-button" id="receipt-done-button">
+                <img src="icon-checkmark-white.png" alt="Selesai">
+                Selesai
+            </button>
+        </footer>
+    </div>
+    
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-box">
+            <div class="loading-dots-container">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
+            <p>Sedang memproses...</p>
+        </div>
+    </div>
+    
+    <div class="account-switcher-overlay" id="account-switcher-overlay">
+        <header class="app-header">
+            <a href="#" class="back-icon" id="account-switcher-close-btn">←</a> 
+            <h1>Pilih Sumber Dana</h1>
+        </header>
+        <main class="account-switcher-content" id="account-switcher-content">
+            <div class="account-slot" id="account-slot-0">
+                <div class="details">
+                    <img src="bri-simpedes.png" alt="Bank">
+                    <div class="info">
+                        <p class="slot-name" id="slot-name-0">Nama Akun 1</p>
+                        <p class="slot-number" id="slot-number-0">0000 **** 000</p>
+                        <p class="slot-balance" id="slot-balance-0">Rp0</p>
+                    </div>
+                </div>
+                <div class="account-actions">
+                    <button class="btn-select-account" data-index="0">Pilih</button>
+                    <button class="btn-edit-account" data-index="0">Edit</button>
+                </div>
+            </div>
+            <div class="account-slot" id="account-slot-1">
+                <div class="details">
+                    <img src="bri-simpedes.png" alt="Bank">
+                    <div class="info">
+                        <p class="slot-name" id="slot-name-1">Nama Akun 2</p>
+                        <p class="slot-number" id="slot-number-1">0000 **** 000</p>
+                        <p class="slot-balance" id="slot-balance-1">Rp0</p>
+                    </div>
+                </div>
+                <div class="account-actions">
+                    <button class="btn-select-account" data-index="1">Pilih</button>
+                    <button class="btn-edit-account" data-index="1">Edit</button>
+                </div>
+            </div>
+            <div class="account-slot" id="account-slot-2">
+                <div class="details">
+                    <img src="bri-simpedes.png" alt="Bank">
+                    <div class="info">
+                        <p class="slot-name" id="slot-name-2">Nama Akun 3</p>
+                        <p class="slot-number" id="slot-number-2">0000 **** 000</p>
+                        <p class="slot-balance" id="slot-balance-2">Rp0</p>
+                    </div>
+                </div>
+                <div class="account-actions">
+                    <button class="btn-select-account" data-index="2">Pilih</button>
+                    <button class="btn-edit-account" data-index="2">Edit</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

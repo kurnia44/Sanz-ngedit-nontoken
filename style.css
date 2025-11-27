@@ -3,11 +3,41 @@
  * ======================================
  */
 @font-face {
-  font-family: 'FontAngkaUser'; 
-  src: url('2131296268.ttf') format('truetype');
+    font-family: 'FontAngkaUser';
+    src: url('2131296268.ttf') format('truetype');
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display.swap');
+/* --- PERUBAHAN (REQ 2) --- */
+@font-face {
+    font-family: 'FontNamaPenerima';
+    src: url('nama.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'FontBankPenerima';
+    src: url('bank.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'FontRekeningPenerima';
+    src: url('rekening.ttf') format('truetype');
+}
+/* --- AKHIR PERUBAHAN --- */
+
+/* --- PERUBAHAN BARU: Definisi Font Struk --- */
+@font-face {
+    font-family: 'FontTransaksi';
+    src: url('transaksi.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'FontTanggal';
+    src: url('tanggal.ttf') format('truetype');
+}
+        /* --- PERUBAHAN BARU: Font No. Ref --- */
+@font-face {
+    font-family: 'FontNoRef';
+    src: url('noref.ttf') format('truetype');
+}
+/* --- AKHIR PERUBAHAN --- */
+
 
 * {
     box-sizing: border-box;
@@ -38,7 +68,7 @@ body {
 }
 
 .app-content {
-    flex-grow: 1; 
+    flex-grow: 1;
     padding: 0 16px; 
 }
 
@@ -47,7 +77,7 @@ body {
  * ======================================
  */
 .app-header {
-    background-color: #007AFF; 
+    background-color: #007AFF;
     color: white;
     padding: 16px;
     display: flex;
@@ -71,7 +101,7 @@ body {
     font-weight: 500; 
     flex-grow: 1;
     text-align: center;
-    margin-right: 40px; 
+    margin-right: 40px;
 }
 
 /* * ======================================
@@ -79,13 +109,13 @@ body {
  * ======================================
  */
 .card {
-    background-color: #FFFFFF; 
+    background-color: #FFFFFF;
     border-radius: 12px; 
     padding: 16px; 
     margin-top: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
     border: none; 
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 /* Judul bagian */
@@ -96,11 +126,11 @@ body {
     margin-left: 4px; 
     font-size: 14px;
     font-weight: bold; 
-    color: #000000; 
+    color: #000000;
 }
 
 /* * ======================================
- * INFO PENERIMA
+ * INFO PENERIMA (DINAMIS)
  * ======================================
  */
 .recipient-info {
@@ -121,18 +151,34 @@ body {
     place-items: center;
 }
 
+/* --- PERUBAHAN (REQ 1 & 2) --- */
 .recipient-details h3 {
-    margin: 0 0 2px 0; 
-    font-size: 16px;
-    font-weight: 500; 
+    margin: 0 0 2px 0;
+    font-size: 18px; /* Diubah dari 19px */
+    font-weight: 500;
     color: #111;
+    font-family: 'FontNamaPenerima', sans-serif; /* Font Baru */
 }
 
 .recipient-details p {
     margin: 0;
-    font-size: 14px;
-    color: #888; 
+    font-size: 14px; /* Diubah dari 16px */
+    color: #888;
+    margin-top: 2px;
 }
+
+#main-recipient-bank {
+    color: #555;
+    font-weight: 500;
+    font-family: 'FontBankPenerima', sans-serif; /* Font Baru */
+}
+
+#main-recipient-number {
+    font-family: 'FontRekeningPenerima', sans-serif;
+    /* Font Baru */
+}
+/* --- AKHIR PERUBAHAN --- */
+
 
 /* * ======================================
  * TOGGLE SWITCH (iOS Style)
@@ -186,10 +232,10 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
 }
 input:checked + .slider {
-    background-color: #007AFF; 
+    background-color: #007AFF;
 }
 input:checked + .slider:before {
-    transform: translateX(20px); 
+    transform: translateX(20px);
 }
 
 /* * ======================================
@@ -214,14 +260,14 @@ input:checked + .slider:before {
     -moz-appearance: none;
 }
 .select-wrapper::after {
-    content: '⌄'; 
+    content: '⌄';
     font-size: 20px;
     color: #888;
     position: absolute;
     right: 16px;
     top: 50%;
     transform: translateY(-50%); 
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 /* * ======================================
@@ -292,7 +338,7 @@ input:checked + .slider:before {
     color: #888; 
     margin-top: 6px; 
     margin-bottom: 0;
-    transition: color 0.3s ease; 
+    transition: color 0.3s ease;
 }
 
 .card-divider {
@@ -312,12 +358,12 @@ input:checked + .slider:before {
 }
 
 .catatan-icon-img {
-    width: 20px; 
+    width: 20px;
     height: 20px;
     object-fit: contain; 
     margin-right: 12px;
     margin-top: 0;
-    opacity: 0.7; 
+    opacity: 0.7;
 }
 
 .catatan-input {
@@ -328,7 +374,7 @@ input:checked + .slider:before {
     font-family: 'Inter', sans-serif;
     resize: none; 
     padding: 0;
-    line-height: 1.4; 
+    line-height: 1.4;
 }
 
 .catatan-input::placeholder {
@@ -345,9 +391,14 @@ input:checked + .slider:before {
 }
 
 /* * ======================================
- * SUMBER DANA
+ * SUMBER DANA (KEMBALI KE STATIS)
  * ======================================
  */
+
+#sumber-dana-title {
+    font-size: 20px;
+}
+
 .source-card {
     display: flex;
     justify-content: space-between; 
@@ -362,7 +413,7 @@ input:checked + .slider:before {
 }
 
 .bank-logo {
-    width: 70px; 
+    width: 70px;
     height: auto; 
     margin-right: 16px; 
     border-radius: 4px; 
@@ -374,7 +425,7 @@ input:checked + .slider:before {
 }
 
 .source-info .account-number {
-    margin: 0 0 2px 0; 
+    margin: 0 0 2px 0;
     font-size: 15px;
     font-weight: 600; 
     color: #111; 
@@ -388,7 +439,7 @@ input:checked + .slider:before {
 }
 
 .source-info .balance {
-    font-weight: 500; 
+    font-weight: 500;
     color: #333;
     font-size: 15px;
     margin-top: 4px; 
@@ -401,7 +452,7 @@ input:checked + .slider:before {
     color: #007AFF; 
     text-decoration: none;
     padding: 4px 8px; 
-    margin-left: 12px; 
+    margin-left: 12px;
 }
 
 /* * ======================================
@@ -415,7 +466,7 @@ input:checked + .slider:before {
     box-shadow: none; 
     position: sticky;
     bottom: 0;
-    z-index: 50; 
+    z-index: 50;
 }
 
 .continue-button {
@@ -443,7 +494,7 @@ input:checked + .slider:before {
  * ======================================
  */
 .pin-overlay {
-    display: none; 
+    display: none;
     position: fixed; 
     top: 0;
     left: 0;
@@ -451,7 +502,7 @@ input:checked + .slider:before {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3); 
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
     z-index: 200; 
     flex-direction: column;
 }
@@ -462,12 +513,12 @@ input:checked + .slider:before {
 }
 
 .pin-content-top {
-    flex-grow: 1; 
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 30px; 
-    color: white; 
+    color: white;
 }
 
 .pin-content-top h2 {
@@ -482,6 +533,7 @@ input:checked + .slider:before {
     margin-top: 24px;
 }
 
+/* --- PERUBAHAN (REQ 1) --- */
 .pin-dot {
     width: 16px;
     height: 16px;
@@ -493,7 +545,10 @@ input:checked + .slider:before {
 
 .pin-dot.filled {
     background-color: white;
+    /* DIKEMBALIKAN ke putih */
 }
+/* --- AKHIR PERUBAHAN --- */
+
 
 .forgot-pin-button {
     margin-top: 24px;
@@ -518,31 +573,47 @@ input:checked + .slider:before {
     column-gap: 32px;
 }
 
+/* --- PERUBAHAN (REQ 1) --- */
 .numpad-button {
     border: none;
     background: transparent;
     color: white;
     font-size: 28px;
     font-weight: 500;
-    padding: 16px 0; 
     cursor: pointer;
-    text-align: center;
+    /* Ubah tombol jadi bulat */
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    justify-self: center; /* Pusatkan tombol di dalam sel grid */
+    display: grid;
+    place-items: center;
+    transition: background-color 0.15s ease;
+    -webkit-tap-highlight-color: transparent; /* Hapus highlight biru persegi */
 }
+
+.numpad-button:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    /* Efek 'press' bulat */
+}
+/* --- AKHIR PERUBAHAN --- */
+
 
 .numpad .blank {
     visibility: hidden;
 }
 
 .numpad-button.backspace {
-    font-size: 24px; 
+    font-size: 24px;
 }
 
 /* * ======================================
- * CSS BARU: OVERLAY BUKTI TRANSFER (GAMBAR)
+ * CSS HALAMAN BUKTI TRANSFER (GAYA POLOS)
  * ======================================
  */
-.image-receipt-overlay {
-    display: none; 
+
+.receipt-overlay {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -551,42 +622,398 @@ input:checked + .slider:before {
     background-color: #F8F9FB; 
     z-index: 300; 
     flex-direction: column;
+    overflow-y: auto;
 }
 
-/* Kontainer gambar (agar bisa scroll) */
-.image-receipt-overlay .receipt-image-container {
-    flex-grow: 1; 
+.receipt-header {
+    background-color: #007AFF;
+    /* <-- DIAKTIFKAN KEMBALI sebagai cadangan */
+    background-image: url('back.png');
+    /* Gambar Anda akan menimpa warna ini */
+    background-size: cover;
+    background-position: center; 
+    color: white;
+    padding: 24px 24px 165px 24px; /* DIUBAH: Atas 24, Kanan/Kiri 24, Bawah 165 */
+    text-align: center;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+.receipt-header img.icon-success {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 16px;
+}
+.receipt-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+}
+.receipt-header p {
+    font-size: 13px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* --- PERUBAHAN BARU: Font Kustom Struk --- */
+#receipt-status-title {
+    font-family: 'FontTransaksi', sans-serif;
+}
+#receipt-timestamp {
+    font-family: 'FontTanggal', sans-serif;
+}
+/* --- AKHIR PERUBAHAN --- */
+
+.receipt-content {
+    flex-grow: 1;
+}
+
+/* --- PERUBAHAN BARU: Wrapper untuk Shadow Roda Gigi --- */
+.receipt-card-shadow-wrapper {
+    /* Pindahkan shadow dari .receipt-card ke wrapper ini */
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+    /* Pindahkan margin dari .receipt-card ke wrapper ini */
+    margin: -160px 16px 16px 16px;
+    z-index: 10;
+}
+
+.receipt-card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    margin: 0; /* DIHAPUS: Pindah ke wrapper */
+    padding: 20px 20px 30px 20px;
+    /* DIUBAH: padding-bottom ditambah 10px */
+    box-shadow: none;
+    /* DIHAPUS: Pindah ke wrapper */
+    color: #333;
+    position: relative; 
+    /* z-index: 10; */ /* DIHAPUS: Pindah ke wrapper */
+    overflow: hidden;
+    /* Pastikan watermark tidak bocor */
+    border: 1px solid #DDD;
+    /* Garis hitam tipis (abu-abu tua) */
+    border-bottom: none;
+    /* DIHAPUS: Border bawah akan diganti efek */
+
+    /* --- PERUBAHAN YANG DIPERBAIKI: Efek Potongan Roda Gigi --- */
+    /* Tinggi gigi (12px) */
+    --gigi-height: 12px;
+    /* Lebar satu gigi (/\) (24px) */
+    --gigi-width: 24px;
+    /* 1. Badan kartu: Kotak solid yang berhenti 12px sebelum bawah */
+    --badan-kartu: linear-gradient(to bottom, #000 0%, #000 calc(100% - var(--gigi-height)), transparent calc(100% - var(--gigi-height)));
+    /* 2. Pola "gigi" (/\) */
+    --gigi-kiri: linear-gradient(135deg, #000 50%, transparent 50.5%);
+    --gigi-kanan: linear-gradient(225deg, #000 50%, transparent 50.5%);
+
+    -webkit-mask-image: var(--badan-kartu), var(--gigi-kiri), var(--gigi-kanan);
+    -webkit-mask-size: 100% 100%, var(--gigi-width) var(--gigi-height), var(--gigi-width) var(--gigi-height);
+    -webkit-mask-position: 0 0, 0 100%, 0 100%;
+    -webkit-mask-repeat: no-repeat, repeat-x, repeat-x;
+    
+    mask-image: var(--badan-kartu), var(--gigi-kiri), var(--gigi-kanan);
+    mask-size: 100% 100%, var(--gigi-width) var(--gigi-height), var(--gigi-width) var(--gigi-height);
+    mask-position: 0 0, 0 100%, 0 100%;
+    mask-repeat: no-repeat, repeat-x, repeat-x;
+    /* --- AKHIR PERUBAHAN --- */
+}
+
+/* --- PERUBAHAN BARU: Watermark (FIX SUBLIM) --- */
+.receipt-card::before {
+    content: "";
+    position: absolute;
+    
+    /* Buat pseudo-element lebih besar dari card */
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    
+    /* Watermark properties */
+    background-image: url('bri_logo_watermark.png');
+    background-repeat: repeat;
+    
+    /* Dikecilkan agar lebih banyak/rapat */
+    background-size: 60px;
+    /* Kemiringan 45 derajat (negatif agar miring ke kanan atas) */
+    transform: rotate(-45deg);
+    /* Posisikan di belakang konten */
+    z-index: 0;
+    /* Buat pudar */
+    opacity: 0.08;
+    /* Mencegah interaksi mouse */
+    pointer-events: none;
+}
+/* --- AKHIR PERUBAHAN --- */
+
+
+/* Pastikan konten card (teks, dll) di atas watermark */
+.receipt-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+.receipt-card p.total-title {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 4px 0;
+}
+.receipt-card p.total-amount {
+    text-align: center;
+    font-size: 27px; 
+    font-weight: 700;
+    color: #365a92; 
+    margin: 0 0 20px 0;
+    font-family: 'FontAngkaUser', sans-serif;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.receipt-row .label {
+    color: #666;
+}
+.receipt-row .value {
+    color: #111;
+    font-weight: 500;
+}
+
+/* --- PERUBAHAN BARU: Ukuran Font No. Ref --- */
+#receipt-ref-row {
+    font-size: 16px;
+    /* 14px (awal) + 2px = 16px */
+}
+/* --- AKHIR PERUBAHAN --- */
+
+/* --- PERUBAHAN: Sembunyikan garis divider --- */
+.receipt-divider {
+    display: none;
+    /* Sembunyikan garis <hr> */
+}
+
+/* --- PERUBAHAN BARU: Kotak wrapper --- */
+.receipt-party-wrapper {
+    border: 1px solid #DDD;
+    /* Garis hitam tipis */
+    border-radius: 8px;
+    /* Sudut melengkung */
+    padding: 16px;
+    /* Jarak di dalam kotak */
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* <-- DIUBAH DARI 16px */
+    margin: 16px 0;
+    /* Gantikan margin <hr> */
+}
+
+/* --- PERUBAHAN BARU: Garis gantung --- */
+hr.receipt-divider-inner {
+    border: none;
+    height: 1px;
+    background-color: #DDD; /* Garis abu-abu tua */
+    margin-top: 16px;
+    /* Jarak atas */
+    margin-bottom: 16px;
+    /* Jarak bawah */
+    margin-left: 3px;
+    /* Gantung 16px dari tepi kotak */
+    margin-right: 3px;
+    /* Gantung 16px dari tepi kotak */
+}
+/* --- AKHIR PERUBAHAN --- */
+
+.receipt-party {
+    /* Hapus border individu */
+    /* border: 1px solid #DDD;
+    */
+    /* border-radius: 8px;
+    */
+    /* padding: 12px;
+    */
+}
+/* --- AKHIR PERUBAHAN --- */
+
+
+.receipt-party h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111; 
+    margin: 0 0 12px 0; /* Biarkan margin-bottom untuk jarak ke avatar */
+}
+.receipt-party .party-details {
+    display: flex;
+    align-items: center;
+}
+.receipt-party .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #E6F2FB; 
+    color: #007AFF;
+    font-weight: 500;
+    font-size: 18px;
+    margin-right: 12px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    font-family: 'FontAngkaUser', sans-serif; /* <-- DITAMBAHKAN */
+}
+.receipt-party .avatar img { 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- PERUBAHAN BARU: Avatar Sumber Dana --- */
+#receipt-source-avatar {
+    background-color: #007AFF;
+    /* Biru */
+    color: #FFFFFF;
+    /* Putih */
+}
+/* --- AKHIR PERUBAHAN --- */
+
+.receipt-party .info {
+    line-height: 1.5;
+}
+.receipt-party .info p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+}
+.receipt-party .info span {
+    font-size: 13px;
+    color: #666;
+}
+
+/* --- PERUBAHAN BARU: Styling 3 Baris di Bukti Transfer --- */
+.receipt-party .info .receipt-info-line {
+    font-size: 13px;
+    color: #666;
+    margin-top: 2px; /* <-- DIUBAH DARI 3px */
+}
+/* --- AKHIR PERUBAHAN --- */
+
+/* --- PERUBAHAN BARU: Font Kustom Bukti Transfer --- */
+#receipt-source-bank,
+#receipt-dest-bank {
+    font-family: 'FontBankPenerima', sans-serif;
+}
+
+#receipt-source-number,
+#receipt-dest-number {
+    font-family: 'FontRekeningPenerima', sans-serif;
+}
+        /* --- PERUBAHAN BARU: Font No. Ref --- */
+#receipt-ref-number {
+    font-family: 'FontNoRef', sans-serif;
+}
+/* --- AKHIR PERUBAHAN --- */
+
+/* --- AKHIR PERUBAHAN --- */
+
+.receipt-details-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007AFF;
+    font-size: 19px; /* <-- DIUBAH DARI 14px */
+    font-weight: 500;
+    text-decoration: none;
+    font-family: 'FontAngkaUser', sans-serif; /* <-- DITAMBAHKAN */
+}
+
+.products-section {
+    padding: 0 16px 16px 16px;
+    /* DIUBAH: padding-bottom dikurangi dari 20px menjadi 16px */
+}
+.products-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    margin-top: 20px; /* DIUBAH: margin-top dikurangi dari 24px menjadi 20px */
+    margin-bottom: 16px;
+    margin-left: 4px;
+}
+.products-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; 
+    padding-bottom: 10px; 
+}
+.product-card {
+    flex: 0 0 200px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.product-card img {
+    width: 40px;
+    height: auto;
+    margin-bottom: 8px;
+}
+.product-card p {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #111;
+}
+.product-card span {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+.ojk-info-container {
+    text-align: center;
+    margin: 10px 10px 0 10px; /* DIUBAH: margin-top dikurangi dari 20px menjadi 16px */
+    padding-bottom: 0;
+    /* DIUBAH: padding-bottom dihapus (dari 10px menjadi 0) */
+}
+.ojk-logos {
     display: flex;
     justify-content: center;
-    align-items: flex-start; 
-    overflow-y: auto; 
-    padding-top: 20px; 
-    padding-bottom: 20px; 
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+.ojk-logos img {
+    height: 62px;
+    width: auto;
+    opacity: 0.8;
 }
 
-.image-receipt-overlay img.full-receipt-image {
-    max-width: 90%; 
-    height: auto;
-    display: block; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.ojk-info-text {
+    /* --- DIPINDAHKAN KE ATAS, KE DALAM .receipt-expanded-details --- */
+    font-size: 13px;
+    font-weight: 500; 
+    color: #D9534F; 
+    opacity: 0.8; 
+    text-align: center; 
+    line-height: 1.5; 
+    margin: 0; 
+    font-style: italic;
 }
 
-/* PERUBAHAN FOOTER BUKTI TRANSFER
-  (Menggunakan gaya baru dari gambar Anda)
-*/
-.image-receipt-overlay .receipt-action-footer {
+/* Footer "Bagikan" & "Selesai" */
+.receipt-footer {
     background-color: #fff;
     padding: 16px;
     border-top: 1px solid #EAEAEA;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
-    display: flex; /* Mengatur tombol berdampingan */
-    gap: 12px; /* Jarak antar tombol */
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05); 
+    display: flex;
+    gap: 12px;
+    position: sticky; 
+    bottom: 0;
+    z-index: 10;
 }
-
-/* Tombol generik di dalam footer */
-.image-receipt-overlay .receipt-action-footer button {
-    flex: 1; /* Membagi ruang sama rata */
+.receipt-footer button {
+    flex: 1;
     padding: 12px;
     border-radius: 8px;
     font-size: 15px;
@@ -596,24 +1023,493 @@ input:checked + .slider:before {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    font-family: 'FontAngkaUser', sans-serif; /* <-- DITAMBAHKAN */
 }
-
-.image-receipt-overlay .receipt-action-footer button img {
-    width: 16px;
-    height: 16px;
+.receipt-footer button img {
+    width: 18px;
+    /* <-- DIUBAH DARI 16px */
+    height: 18px;
+    /* <-- DIUBAH DARI 16px */
 }
-
-/* Tombol Bagikan (Gaya baru) */
-.image-receipt-overlay .share-button {
+.receipt-footer .share-button {
     background-color: #fff;
-    border: 1px solid #007AFF; /* Biru */
-    color: #007AFF; /* Biru */
+    border: 1px solid #007AFF;
+    color: #007AFF;
 }
-
-/* Tombol Selesai (Gaya baru) */
-.image-receipt-overlay .done-button {
-    background-color: #007AFF; /* Biru */
+.receipt-footer .done-button {
+    background-color: #007AFF;
     border: 1px solid #007AFF;
     color: #fff;
 }
 
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 500; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loading-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loading-dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
+    margin-bottom: 16px;
+    height: 20px;
+}
+.loading-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5); 
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+.loading-dot:nth-child(1) { animation-delay: -0.32s;
+}
+.loading-dot:nth-child(2) { animation-delay: -0.16s;
+}
+.loading-dot:nth-child(3) { animation-delay: 0s;
+}
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        background-color: rgba(255, 255, 255, 0.5); 
+    }
+    40% {
+        transform: scale(1);
+        background-color: #FFFFFF; 
+    }
+}
+.loading-overlay p {
+    font-size: 15px;
+    font-weight: 500;
+    color: #FFFFFF; 
+    margin: 0;
+}
+
+
+/* * ======================================
+ * CSS SETUP OVERLAY
+ * ======================================
+ */
+.setup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F9FB; 
+    z-index: 1000; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    overflow-y: auto;
+}
+.setup-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+.setup-card h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: #111;
+}
+.setup-input-group {
+    margin-bottom: 16px;
+}
+.setup-input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+.setup-input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+}
+.setup-button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px; 
+    border: none;
+    font-size: 16px;
+    font-weight: 500; 
+    background-color: #007AFF;
+    color: white;
+    cursor: pointer;
+    margin-top: 24px;
+}
+
+/* --- PERUBAHAN BARU: Tombol Success --- */
+.setup-button.success-mode {
+    background-color: #28a745;
+    /* Hijau */
+    margin-top: 12px;
+}
+/* --- AKHIR PERUBAHAN --- */
+
+
+/* * ======================================
+ * CSS TOKEN OVERLAY (BARU)
+ * ======================================
+ */
+.token-overlay {
+    display: none;
+    /* Diatur oleh JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #007AFF; /* Latar biru */
+    z-index: 2000;
+    /* Di atas setup overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* BARU: Untuk berisi video */
+}
+
+/* --- PERUBAHAN (REQ 2): Video Latar --- */
+#token-bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: -1;
+    /* Di belakang konten */
+    object-fit: cover;
+    filter: brightness(0.6);
+    /* Sedikit gelapkan video */
+}
+/* --- AKHIR PERUBAHAN --- */
+
+
+.token-card {
+    background-color: rgba(255, 255, 255, 0.5);
+    /* <-- DIUBAH DARI 0.9 */
+    backdrop-filter: blur(5px);
+    /* BARU: Efek glass */
+    -webkit-backdrop-filter: blur(5px);
+    /* BARU: Efek glass (Safari) */
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.token-card h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #111;
+}
+
+.token-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 24px;
+}
+
+.token-input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 12px;
+}
+
+.token-error {
+    font-size: 13px;
+    color: red;
+    height: 18px; /* Siapkan ruang agar tidak lompat */
+    margin-bottom: 12px;
+}
+
+.token-button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px; 
+    border: none;
+    font-size: 16px;
+    font-weight: 500; 
+    background-color: #007AFF;
+    color: white;
+    cursor: pointer;
+}
+
+/* ===== CSS UNTUK TOMBOL ORDER (BARU) ===== */
+.token-order-button {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px; 
+    border: none;
+    font-size: 16px;
+    font-weight: 500; 
+    background-color: #D9534F;
+    /* Warna Merah */
+    color: white;
+    cursor: pointer;
+    margin-top: 12px; /* Jarak dari tombol "Masuk" */
+}
+/* ========================================= */
+
+.token-loader {
+    display: none;
+    /* Sembunyi by default */
+    height: 20px;
+    margin-top: 16px;
+}
+
+
+/* * ======================================
+ * CSS OVERLAY GANTI AKUN (BARU)
+ * ======================================
+ */
+.account-switcher-overlay {
+    display: none;
+    /* Sembunyi by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F9FB;
+    z-index: 400;
+    /* Di atas main app, di bawah PIN */
+    flex-direction: column;
+}
+
+.account-switcher-overlay .app-header {
+    position: static;
+    /* Header tidak sticky di overlay */
+}
+
+.account-switcher-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Jarak antar slot */
+}
+
+.account-slot {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid transparent; /* Border default */
+    transition: border-color 0.3s ease;
+}
+
+.account-slot.active {
+    border-color: #007AFF;
+    /* Border biru untuk akun aktif */
+}
+
+.account-slot .details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.account-slot .details img {
+    width: 40px;
+    /* Ukuran logo bank */
+    height: auto;
+    border-radius: 4px;
+}
+
+.account-slot .info p {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.account-slot .info .slot-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+}
+
+.account-slot .info .slot-number {
+    font-size: 14px;
+    color: #555;
+    margin: 2px 0;
+}
+
+.account-slot .info .slot-balance {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    font-family: 'FontAngkaUser', sans-serif; 
+}
+
+.account-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-actions button {
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.account-actions .btn-select-account {
+    background-color: #007AFF;
+    color: white;
+}
+.account-actions .btn-select-account:disabled {
+    background-color: #E9ECEF;
+    color: #ADB5BD;
+    cursor: not-allowed;
+}
+
+.account-actions .btn-edit-account {
+    background-color: #F0F0F0;
+    color: #333;
+}
+
+
+/* --- PERUBAHAN BARU: Styling Ikon Panah Atas/Bawah --- */
+.receipt-details-link img {
+    width: 16px;
+    /* Anda bisa sesuaikan ukurannya */
+    height: 16px;
+    /* Anda bisa sesuaikan ukurannya */
+    margin-left: 4px;
+    vertical-align: middle; /* Menyejajarkan ikon dengan teks */
+    display: inline-block;
+    /* Pastikan gambar ditampilkan */
+}
+
+/* Sembunyikan panah 'atas' (atas.png) secara default */
+.receipt-details-link .arrow-up {
+    display: none;
+}
+
+/* Saat di-expand, sembunyikan panah 'bawah' (bawah.png) */
+.receipt-details-link.expanded .arrow-down {
+    display: none;
+}
+
+/* Saat di-expand, tampilkan panah 'atas' (atas.png) */
+.receipt-details-link.expanded .arrow-up {
+    display: inline-block;
+}
+/* --- AKHIR PERUBAHAN --- */
+
+/* Konten detail yang bisa di-expand */
+.receipt-expanded-details {
+    display: none;
+    /* Sembunyi by default */
+    margin-top: 20px;
+    /* Jarak dari atas */
+}
+
+.receipt-expanded-details.expanded {
+    display: block;
+    /* Tampil saat di-klik */
+}
+
+/* Garis pemisah baru (putus-putus) */
+.receipt-divider-expanded {
+    border: none;
+    border-top: 1px dashed #DDD; /* Garis putus-putus */
+    margin: 16px 0;
+}
+
+/* Blok Informasi Statis di Bawah */
+.receipt-info-block {
+    margin-top: 12px;
+}
+.receipt-info-block .info-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
+    margin-top: 0;
+}
+.receipt-info-block .info-text {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- PERUBAHAN REQ 3: Styling Teks OJK yg dipindah --- */
+.receipt-expanded-details .ojk-info-text {
+    margin-top: 16px;
+    /* Jarak dari blok NPWP (sekarang jadi jarak dari divider) */
+    text-align: left;
+    /* Ratakan kiri, bukan tengah */
+    font-size: 13px;
+    /* Pastikan style tetap */
+    font-weight: 500; 
+    color: #D9534F;
+    opacity: 0.8; 
+    line-height: 1.5; 
+    margin-bottom: 0; /* Hapus margin bawah jika ada */
+    font-style: italic;
+}
+/* --- AKHIR PERUBAHAN --- */
+
+/* --- PERUBAHAN BARU: Sembunyikan row deposito by default --- */
+#receipt-deposito-wajib-row,
+#receipt-deposito-kurang-row {
+    display: none;
+    /* Sembunyi by default, diatur JS */
+}
+
+/* --- PERUBAHAN BARU: Styling Deposito Kurang (Merah) --- */
+#receipt-deposito-kurang {
+    color: #D9534F;
+    /* Warna merah (gagal) */
+    font-weight: 600;
+    /* Sedikit tebal */
+}
+/* --- AKHIR PERUBAHAN --- */
