@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
     
@@ -114,7 +114,6 @@
             </div>
      
             <span class="section-title">Nominal Transfer</span>
-
             <div class="card card-nominal">
                 <label class="nominal-input-area" for="input-nominal">
                     <div class="nominal-input-wrapper">
@@ -146,7 +145,6 @@
             </div>
 
             <span class="section-title" id="sumber-dana-title">Sumber Dana</span>
-
             <div class="card source-card">
                 <div class="source-details">
                     <img src="bri-simpedes.png" alt="Logo BRI Simpedes" class="bank-logo">
@@ -167,11 +165,12 @@
     </form>
     
     <div class="pin-overlay" id="pin-overlay">
-        <header class="app-header">
-            <a href="#" class="back-icon" id="pin-back-button">←</a> 
+        <div class="pin-header-top">
+            <a href="#" class="back-icon" id="pin-back-button">←</a>
             <h1>PIN</h1>
-        </header>
-        <main class="pin-content-top">
+        </div>
+
+        <div class="pin-center-area">
             <h2>Masukkan PIN</h2>
             <div class="pin-dots">
                 <div class="pin-dot"></div>
@@ -181,9 +180,10 @@
                 <div class="pin-dot"></div>
                 <div class="pin-dot"></div>
             </div>
-            <button class="forgot-pin-button">Lupa PIN?</button>
-        </main>
-        <footer class="numpad-footer">
+            <button class="forgot-pin-btn">Lupa PIN?</button>
+        </div>
+
+        <div class="numpad-container">
             <div class="numpad">
                 <button class="numpad-button">1</button>
                 <button class="numpad-button">2</button>
@@ -196,9 +196,21 @@
                 <button class="numpad-button">9</button>
                 <div class="blank"></div>
                 <button class="numpad-button">0</button>
-                <button class="numpad-button backspace">←</button> 
+                <button class="numpad-button backspace">←</button>
             </div>
-        </footer>
+        </div>
+    </div>
+    
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-dots">
+            <div class="l-dot"></div>
+            <div class="l-dot"></div>
+            <div class="l-dot"></div>
+            <div class="l-dot"></div>
+            <div class="l-dot"></div>
+            <div class="l-dot"></div>
+        </div>
+        <p class="loading-text">Loading</p>
     </div>
     
     <div class="receipt-overlay" id="receipt-overlay">
@@ -249,19 +261,15 @@
                     </div>
 
                     <div class="receipt-expanded-details" id="receipt-expanded-details">
-                        
                         <div class="receipt-divider-expanded"></div>
-
                         <div class="receipt-row">
                             <span class="label">Jenis Transaksi</span>
                             <span class="value" id="receipt-tx-type">Transfer BRI</span>
                         </div>
-                        
                         <div class="receipt-row">
                             <span class="label">Catatan</span>
                             <span class="value" id="receipt-notes">-</span>
                         </div>
-                        
                         <div class="receipt-row" id="receipt-deposito-wajib-row">
                             <span class="label">Total Deposito</span>
                             <span class="value" id="receipt-deposito-wajib">Rp0</span>
@@ -271,17 +279,14 @@
                             <span class="value" id="receipt-deposito-kurang">Rp0</span>
                         </div>
                         <div class="receipt-divider-expanded"></div>
-                        
                         <div class="receipt-row">
                             <span class="label">Nominal</span>
                             <span class="value" id="receipt-nominal-detail">Rp0</span>
                         </div>
-            
                         <div class="receipt-row">
                             <span class="label">Biaya Admin</span>
                             <span class="value" id="receipt-admin-fee">Rp0</span>
                         </div>
-
                         <div class="receipt-divider-expanded"></div>
 
                         <p class="ojk-info-text">
@@ -320,7 +325,6 @@
                         <span>Nikmati kebebasan...</span>
                     </div>
                 </div>
-                
                 <div class="ojk-info-container">
                     <div class="ojk-logos">
                         <img src="bi.png" alt="Logo BI">
@@ -339,17 +343,6 @@
                 Selesai
             </button>
         </footer>
-    </div>
-    
-    <div class="loading-overlay" id="loading-overlay">
-        <div class="loading-box">
-            <div class="loading-dots-container">
-                <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
-            </div>
-            <p>Sedang memproses...</p>
-        </div>
     </div>
     
     <div class="account-switcher-overlay" id="account-switcher-overlay">
