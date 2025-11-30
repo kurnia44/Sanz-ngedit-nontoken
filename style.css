@@ -188,16 +188,14 @@ input:checked + .slider:before { transform: translateX(20px); }
 
 /* * ======================================
  * PIN OVERLAY (STYLE: GLASS BLUR EFFECT)
- * Sesuai Gambar Referensi 1000520854.jpg
  * ======================================
  */
 .pin-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Background Biru Gelap Transparan */
     background-color: rgba(0, 0, 0, 0.3); 
-    backdrop-filter: blur(4px); /* Efek Blur Kaca */
+    backdrop-filter: blur(4px); 
     -webkit-backdrop-filter: blur(4px);
     z-index: 999;
     flex-direction: column;
@@ -206,7 +204,6 @@ input:checked + .slider:before { transform: translateX(20px); }
     font-family: 'Inter', sans-serif;
 }
 
-/* Header kecil "PIN" */
 .pin-header-top {
     display: flex; align-items: center; justify-content: center;
     position: relative; padding: 20px; margin-top: 10px;
@@ -221,37 +218,32 @@ input:checked + .slider:before { transform: translateX(20px); }
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
-/* Area Tengah: Judul, Dot, Tombol Lupa */
 .pin-center-area {
     display: flex; flex-direction: column; align-items: center;
     justify-content: center; margin-top: -20px; 
 }
 .pin-center-area h2 { color: white; font-size: 18px; font-weight: 700; margin-bottom: 30px; }
 
-/* Titik-titik PIN (Lingkaran Garis Putih) */
 .pin-dots { display: flex; gap: 18px; margin-bottom: 30px; }
 .pin-dot {
     width: 18px; height: 18px; border-radius: 50%;
-    border: 2px solid white; /* Garis putih */
+    border: 2px solid white; 
     background-color: transparent; box-sizing: border-box; transition: all 0.2s;
 }
 .pin-dot.filled { background-color: white; }
 
-/* Tombol Lupa PIN (Gelap Transparan) */
 .forgot-pin-btn {
     background: rgba(0, 0, 0, 0.25); 
     border: none;
-    color: #55C6F0; /* Biru Terang (Cyan) */
+    color: #55C6F0; 
     padding: 10px 24px; border-radius: 50px; 
     font-size: 14px; font-weight: 600;
     text-decoration: none; cursor: pointer; margin-top: 10px;
 }
 
-/* Area Numpad (Angka) */
 .numpad-container { padding: 0 40px; padding-bottom: 20px; }
 .numpad { display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 20px; column-gap: 0; }
 
-/* TOMBOL NUMPAD (UPDATE: BULAT SEMPURNA) */
 .numpad-button {
     border: none;
     background: transparent;
@@ -259,26 +251,18 @@ input:checked + .slider:before { transform: translateX(20px); }
     font-size: 28px;
     font-weight: 500;
     cursor: pointer;
-    
-    /* MEMBUAT BENTUK BULAT */
     width: 75px; 
     height: 75px; 
-    border-radius: 50%; /* Lingkaran penuh */
-    
-    /* POSISI TENGAH */
+    border-radius: 50%; 
     justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    
     transition: background-color 0.15s ease, transform 0.1s ease;
-    
-    /* HILANGKAN EFEK KOTAK DEFAULT */
     outline: none;
     -webkit-tap-highlight-color: transparent; 
 }
 
-/* EFEK TEKAN TOMBOL (BULAT) */
 .numpad-button:active {
     background-color: rgba(255, 255, 255, 0.3);
     transform: scale(0.95);
@@ -290,26 +274,23 @@ input:checked + .slider:before { transform: translateX(20px); }
 
 /* * ======================================
  * LOADING OVERLAY (STYLE: BLUR & 6 DOTS)
- * Sesuai Gambar Referensi 1000520857.jpg
  * ======================================
  */
 .loading-overlay {
     display: none;
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.1); 
-    backdrop-filter: blur(3px); /* Blur konten belakang */
+    backdrop-filter: blur(3px); 
     -webkit-backdrop-filter: blur(3px);
     z-index: 2000;
     flex-direction: column; justify-content: center; align-items: center;
     color: white;
 }
-/* Style untuk Loading Utama (6 Dot) */
 .loading-dots { display: flex; gap: 12px; margin-bottom: 20px; }
 .l-dot {
     width: 12px; height: 12px; background-color: white;
     border-radius: 50%; animation: fadePulse 1s infinite ease-in-out;
 }
-/* Animasi berurutan untuk 6 titik */
 .l-dot:nth-child(1) { animation-delay: 0.0s; }
 .l-dot:nth-child(2) { animation-delay: 0.1s; }
 .l-dot:nth-child(3) { animation-delay: 0.2s; }
@@ -460,82 +441,304 @@ hr.receipt-divider-inner {
 #receipt-deposito-wajib-row, #receipt-deposito-kurang-row { display: none; }
 #receipt-deposito-kurang { color: #D9534F; font-weight: 600; }
 
-/* SETUP & TOKEN & ACCOUNT SWITCHER */
+/* * ======================================
+ * SETUP OVERLAY (ULTRA MODERN & DETAILED)
+ * ======================================
+ */
 .setup-overlay {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #F8F9FB; z-index: 1000; display: flex; justify-content: center; align-items: flex-start;
+    display: none; 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    /* Gradient Background yang sangat halus dan modern */
+    background: linear-gradient(180deg, #F9FAFB 0%, #EFF6FF 100%);
+    z-index: 1000; 
+    display: flex; justify-content: center; align-items: flex-start;
     padding: 20px; overflow-y: auto;
 }
-.setup-card {
-    width: 100%; max-width: 450px; background-color: #FFFFFF; border-radius: 12px;
-    padding: 24px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-}
-.setup-card h2 { text-align: center; margin-top: 0; margin-bottom: 24px; color: #111; }
-.setup-input-group { margin-bottom: 16px; }
-.setup-input-group label { display: block; font-size: 14px; font-weight: 500; color: #333; margin-bottom: 8px; }
-.setup-input {
-    width: 100%; padding: 12px 14px; font-size: 15px; border: 1px solid #E0E0E0;
-    border-radius: 8px; font-family: 'Inter', sans-serif;
-}
-.setup-button {
-    width: 100%; padding: 14px; border-radius: 10px; border: none; font-size: 16px;
-    font-weight: 500; background-color: #007AFF; color: white; cursor: pointer; margin-top: 24px;
-}
-.setup-button.success-mode { background-color: #28a745; margin-top: 12px; }
 
+.setup-card {
+    width: 100%; max-width: 480px; 
+    background-color: #FFFFFF; 
+    border-radius: 28px; /* Lebih rounded */
+    padding: 40px 32px; 
+    margin-top: 40px; margin-bottom: 40px;
+    /* Shadow premium yang lebih dalam */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.8);
+    position: relative;
+    animation: modalPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.setup-card h2 { 
+    text-align: left; margin-top: 0; margin-bottom: 32px; 
+    color: #111827; font-size: 24px; font-weight: 800;
+    letter-spacing: -0.02em;
+    position: relative;
+    padding-bottom: 16px;
+}
+
+/* Garis dekoratif di bawah judul */
+.setup-card h2::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 60px; height: 4px; background: #007AFF; border-radius: 2px;
+}
+
+.setup-input-group { margin-bottom: 24px; position: relative; }
+
+.setup-input-group label { 
+    display: block; font-size: 13px; font-weight: 700; 
+    color: #4B5563; margin-bottom: 10px; 
+    text-transform: capitalize; 
+    letter-spacing: 0.3px;
+}
+
+.setup-input {
+    width: 100%; 
+    padding: 18px 20px 18px 54px; /* Padding kiri besar untuk ikon */
+    font-size: 15px; font-weight: 500;
+    background-color: #F3F4F6; /* Abu-abu sangat muda */
+    border: 2px solid transparent;
+    border-radius: 16px; 
+    font-family: 'Inter', sans-serif;
+    color: #1F2937;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-repeat: no-repeat;
+    background-position: 18px center;
+    background-size: 22px;
+}
+
+/* Detail Ikon SVG via CSS (Modern Technique) */
+
+/* Ikon Bank */
+#setup-bank-name {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239CA3AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z'/%3E%3C/svg%3E");
+}
+/* Ikon User */
+#setup-account-name {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239CA3AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'/%3E%3C/svg%3E");
+}
+/* Ikon Kartu */
+#setup-account-number {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239CA3AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z'/%3E%3C/svg%3E");
+}
+/* Ikon Uang */
+#setup-min-limit {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239CA3AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'/%3E%3C/svg%3E");
+}
+
+.setup-input:focus {
+    background-color: #FFFFFF;
+    border-color: #007AFF;
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15); /* Ring focus yang indah */
+    outline: none;
+    background-image: inherit; /* Tetap pertahankan ikon saat fokus */
+}
+
+/* Mengubah warna ikon menjadi biru saat fokus (Optional Advanced trick) */
+#setup-bank-name:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23007AFF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z'/%3E%3C/svg%3E");
+}
+#setup-account-name:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23007AFF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'/%3E%3C/svg%3E");
+}
+#setup-account-number:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23007AFF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z'/%3E%3C/svg%3E");
+}
+#setup-min-limit:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23007AFF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'/%3E%3C/svg%3E");
+}
+
+.setup-input::placeholder { color: #9CA3AF; font-weight: 400; }
+
+.setup-button {
+    width: 100%; padding: 18px; border-radius: 16px; border: none; 
+    font-size: 16px; font-weight: 700; 
+    /* Gradient Button */
+    background: linear-gradient(135deg, #007AFF 0%, #0056D2 100%);
+    color: white; cursor: pointer; margin-top: 32px;
+    box-shadow: 0 10px 20px -5px rgba(0, 122, 255, 0.4);
+    transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+}
+
+.setup-button::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(255,255,255,0.2), transparent);
+    opacity: 0; transition: 0.3s;
+}
+
+.setup-button:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(0, 122, 255, 0.5);
+}
+.setup-button:hover::after { opacity: 1; }
+.setup-button:active { transform: translateY(0); }
+
+.setup-button.success-mode { 
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%); 
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+    margin-top: 16px; 
+}
+
+
+/* * ======================================
+ * TOKEN OVERLAY (MODERN GLASS STYLE - UPDATED)
+ * ======================================
+ */
 .token-overlay {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #007AFF; z-index: 2000; display: flex; justify-content: center; align-items: center;
+    display: none; 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    /* Background gradient sebagai fallback jika video gagal load */
+    background: linear-gradient(135deg, #007AFF 0%, #00C6FF 100%);
+    z-index: 2000; 
+    display: flex; justify-content: center; align-items: center;
     padding: 20px; overflow: hidden; 
 }
+
 #token-bg-video {
-    position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto;
-    transform: translateX(-50%) translateY(-50%); z-index: -1; object-fit: cover; filter: brightness(0.6);
+    position: fixed; top: 50%; left: 50%; 
+    min-width: 100%; min-height: 100%; width: auto; height: auto;
+    transform: translateX(-50%) translateY(-50%); 
+    z-index: -1; object-fit: cover; 
+    filter: brightness(0.5) blur(2px); /* Sedikit blur pada video agar teks fokus */
 }
+
 .token-card {
-    background-color: rgba(255, 255, 255, 0.5); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-    border-radius: 12px; padding: 24px; width: 100%; max-width: 350px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); text-align: center;
+    /* Efek Kaca Premium */
+    background: rgba(255, 255, 255, 0.75); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px; 
+    padding: 32px 28px; 
+    width: 100%; max-width: 360px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); 
+    text-align: center;
+    animation: slideUpFade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.token-card h2 { margin-top: 0; margin-bottom: 16px; color: #111; }
-.token-card p { font-size: 14px; color: #555; margin-bottom: 24px; }
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.token-card h2 { 
+    margin-top: 0; margin-bottom: 12px; 
+    color: #1a1a1a; 
+    font-size: 24px; font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.token-card p { 
+    font-size: 15px; color: #4a5568; 
+    margin-bottom: 32px; line-height: 1.5;
+}
+
 .token-input {
-    width: 100%; padding: 12px 14px; font-size: 15px; border: 1px solid #E0E0E0;
-    border-radius: 8px; text-align: center; font-family: 'Inter', sans-serif; margin-bottom: 12px;
+    width: 100%; 
+    padding: 16px; 
+    font-size: 16px; font-weight: 600; letter-spacing: 1px;
+    border: 2px solid transparent;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 16px; 
+    text-align: center; 
+    font-family: 'Inter', sans-serif; 
+    margin-bottom: 16px;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
-.token-error { font-size: 13px; color: red; height: 18px; margin-bottom: 12px; }
+
+.token-input:focus {
+    outline: none;
+    border-color: #007AFF;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+    transform: scale(1.02);
+}
+
+.token-error { 
+    font-size: 13px; color: #e53e3e; height: 18px; margin-bottom: 12px; font-weight: 500;
+}
+
 .token-button {
-    width: 100%; padding: 14px; border-radius: 10px; border: none; font-size: 16px;
-    font-weight: 500; background-color: #007AFF; color: white; cursor: pointer;
+    width: 100%; padding: 16px; border-radius: 16px; border: none; 
+    font-size: 16px; font-weight: 600; 
+    background: linear-gradient(135deg, #007AFF 0%, #0056b3 100%);
+    color: white; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
+
+.token-button:active { transform: scale(0.97); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2); }
+
 .token-order-button {
-    display: block; text-decoration: none; width: 100%; padding: 14px; border-radius: 10px; border: none;
-    font-size: 16px; font-weight: 500; background-color: #D9534F; color: white; cursor: pointer; margin-top: 12px;
+    display: flex; justify-content: center; align-items: center;
+    width: 100%; padding: 14px; border-radius: 16px; border: 2px solid rgba(217, 83, 79, 0.1);
+    font-size: 15px; font-weight: 600; 
+    background-color: rgba(255, 255, 255, 0.5); 
+    color: #D9534F; cursor: pointer; margin-top: 16px;
+    text-decoration: none;
+    transition: all 0.3s;
 }
+
+.token-order-button:hover {
+    background-color: #D9534F;
+    color: white;
+    border-color: #D9534F;
+}
+
+/* * ======================================
+ * 6-DOT MULTICOLOR LOADER
+ * ======================================
+ */
 .token-loader {
     display: none; 
-    height: 20px; 
-    margin-top: 16px;
+    height: 30px; 
+    margin-top: 24px;
     width: 100%;
 }
-/* PERBAIKAN LOADING TOKEN HORIZONTAL */
 .loading-dots-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 8px; /* Jarak antar dot */
     width: 100%;
     height: 100%;
 }
 .loading-dot {
-    width: 10px; height: 10px; background-color: rgba(255, 255, 255, 0.5); 
-    border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both;
-}
-@keyframes bounce {
-    0%, 80%, 100% { transform: scale(0); }
-    40% { transform: scale(1); }
+    width: 12px; height: 12px; 
+    border-radius: 50%;
+    /* Animasi Bouncing Wave */
+    animation: colorBounce 1.2s infinite ease-in-out both;
 }
 
+@keyframes colorBounce {
+    0%, 80%, 100% { 
+        transform: scale(0.8); 
+        opacity: 0.7; 
+    }
+    40% { 
+        transform: scale(1.4); 
+        opacity: 1; 
+        filter: brightness(1.2); /* Efek glowing saat membesar */
+    }
+}
+
+/* WARNA-WARNI & DELAY ANIMASI */
+.loading-dot:nth-child(1) { background: #FF3B30; animation-delay: -0.6s; } /* Merah */
+.loading-dot:nth-child(2) { background: #FF9500; animation-delay: -0.5s; } /* Orange */
+.loading-dot:nth-child(3) { background: #FFCC00; animation-delay: -0.4s; } /* Kuning */
+.loading-dot:nth-child(4) { background: #4CD964; animation-delay: -0.3s; } /* Hijau */
+.loading-dot:nth-child(5) { background: #5AC8FA; animation-delay: -0.2s; } /* Biru Muda */
+.loading-dot:nth-child(6) { background: #007AFF; animation-delay: -0.1s; } /* Biru */
+
+
+/* ACCOUNT SWITCHER */
 .account-switcher-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: #F8F9FB; z-index: 400; flex-direction: column;

@@ -31,18 +31,10 @@
                 </a>
                 
                 <div class="token-loader" id="token-loader">
-                    <style>
-                        .token-loader .loading-dot { background-color: rgba(0,0,0,0.3);
-                        animation-name: bounce-dark; }
-                        .token-loader .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-                        .token-loader .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-                        .token-loader .loading-dot:nth-child(3) { animation-delay: 0s; }
-                        @keyframes bounce-dark {
-                            0%, 80%, 100% { transform: scale(0); background-color: rgba(0,0,0,0.3); }
-                            40% { transform: scale(1); background-color: #007AFF; }
-                        }
-                    </style>
                     <div class="loading-dots-container">
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
                         <div class="loading-dot"></div>
                         <div class="loading-dot"></div>
                         <div class="loading-dot"></div>
@@ -58,18 +50,18 @@
                 <h2>Pengaturan Penerima</h2>
                 
                 <div class="setup-input-group">
-                    <label for="setup-bank-name">Nama Bank Penerima (Lihat contoh jika E-Wallet)</label>
-                    <input type="text" id="setup-bank-name" class="setup-input" placeholder="Contoh: BANK BSI / GOPAY, DANA TOPUP, OVO TOPUP" required oninput="this.value = this.value.toUpperCase()">
+                    <label for="setup-bank-name">Nama Bank Penerima</label>
+                    <input type="text" id="setup-bank-name" class="setup-input" placeholder="Contoh: BANK BSI / DANA / OVO" required oninput="this.value = this.value.toUpperCase()">
                 </div>
                 
                 <div class="setup-input-group">
-                    <label for="setup-account-name">Nama Penerima (Untuk E-Wallet lihat contoh)</label>
-                    <input type="text" id="setup-account-name" class="setup-input" placeholder="Contoh: PRABOWO / DNID - PRABOWO / OVO - PRABOWO" required oninput="this.value = this.value.toUpperCase()">
+                    <label for="setup-account-name">Nama Penerima</label>
+                    <input type="text" id="setup-account-name" class="setup-input" placeholder="Contoh: JOKO WIDODO" required oninput="this.value = this.value.toUpperCase()">
                 </div>
                 
                 <div class="setup-input-group">
-                    <label for="setup-account-number">Nomor Rekening Penerima (Lihat Contoh jika BANK / E-Wallet)</label>
-                    <input type="tel" id="setup-account-number" class="setup-input" placeholder="Contoh: 2770 6767 534 / 0812-1212-1212" required>
+                    <label for="setup-account-number">Nomor Rekening</label>
+                    <input type="tel" id="setup-account-number" class="setup-input" placeholder="Contoh: 1234 5678 90" required>
                 </div>
                 
                 <div class="setup-input-group">
