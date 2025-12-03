@@ -3,113 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure System Login</title>
+    <title>Hacker Matrix Effect</title>
     <style>
-        /* --- Setup Dasar --- */
+        /* Mengatur halaman agar full screen dan hitam */
         body {
             margin: 0;
             padding: 0;
             background-color: black;
-            overflow: hidden;
-            font-family: 'Courier New', Courier, monospace; /* Font ala hacker */
+            overflow: hidden; /* Mencegah scrollbar muncul */
+            font-family: monospace;
         }
         
-        /* Canvas untuk Matrix Rain (Background) */
         canvas {
             display: block;
-            position: absolute; /* Agar bisa ditumpuk */
-            top: 0;
-            left: 0;
-            z-index: 1; /* Layer paling bawah */
-        }
-
-        /* --- Styling Form Login --- */
-        .login-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2; /* Layer di atas canvas */
-        }
-
-        .login-box {
-            background-color: rgba(0, 20, 0, 0.85); /* Hitam kehijauan transparan */
-            border: 1px solid #0F0; /* Garis tepi hijau neon */
-            padding: 40px;
-            width: 300px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3); /* Efek cahaya (glow) */
-            text-align: center;
-        }
-
-        h2 {
-            color: #0F0;
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px #0F0;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        label {
-            color: #0F0;
-            font-size: 12px;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Input field ala Terminal */
-        input {
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #0F0; /* Hanya garis bawah */
-            color: #fff; /* Teks putih saat mengetik */
-            font-family: inherit;
-            font-size: 16px;
-            outline: none;
-            box-sizing: border-box; /* Agar padding tidak merusak lebar */
-        }
-
-        input:focus {
-            border-bottom: 1px solid #fff;
-            box-shadow: 0 10px 10px -10px rgba(0, 255, 0, 0.5);
-        }
-
-        /* Tombol Login */
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #0F0;
-            color: black;
-            border: none;
-            font-family: inherit;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        button:hover {
-            background-color: white;
-            box-shadow: 0 0 15px #0F0;
-        }
-
-        /* Efek teks peringatan kecil */
-        .footer-text {
-            color: rgba(0, 255, 0, 0.6);
-            font-size: 10px;
-            margin-top: 15px;
         }
     </style>
 </head>
@@ -117,83 +23,71 @@
 
     <canvas id="matrix"></canvas>
 
-    <div class="login-wrapper">
-        <div class="login-box">
-            <h2>System Access</h2>
-            <form id="loginForm">
-                <div class="input-group">
-                    <label>USERNAME_</label>
-                    <input type="text" id="username" autocomplete="off" required>
-                </div>
-                <div class="input-group">
-                    <label>PASSWORD_</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit">Decrypt & Enter</button>
-            </form>
-            <div class="footer-text">RESTRICTED AREA. UNAUTHORIZED ACCESS IS PROHIBITED.</div>
-        </div>
-    </div>
-
     <script>
-        // --- LOGIC MATRIX RAIN (Sama seperti sebelumnya) ---
+        // Mendapatkan elemen canvas
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
+        // Mengatur ukuran canvas agar memenuhi layar
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
+        // Karakter yang akan jatuh (Katakana + Angka + Huruf Besar)
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
         const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const nums = '0123456789';
+        
         const alphabet = katakana + latin + nums;
 
+        // Mengatur ukuran font dan jumlah kolom
         const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = [];
+        const columns = canvas.width / fontSize; // Jumlah kolom berdasarkan lebar layar
 
+        // Array untuk menyimpan posisi Y dari setiap tetesan (drops)
+        const drops = [];
+        // Mengisi array drops dengan nilai awal 1 untuk setiap kolom
         for( let x = 0; x < columns; x++ ) {
             drops[x] = 1;
         }
 
+        // Fungsi untuk menggambar efek
         const draw = () => {
+            // Membuat efek jejak (trail) dengan menimpa background hitam semi-transparan
+            // Opacity 0.05 membuat teks lama perlahan memudar
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Mengatur warna teks (Hijau Hacker) dan font
             ctx.fillStyle = '#0F0'; 
             ctx.font = fontSize + 'px monospace';
 
+            // Loop untuk setiap tetesan
             for(let i = 0; i < drops.length; i++) {
+                // Memilih karakter acak
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                
+                // Menggambar karakter pada posisi x (kolom) dan y (drops[i])
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
+                // Mengirim tetesan kembali ke atas secara acak setelah melewati batas layar
                 if(drops[i] * fontSize > canvas.height && Math.random() > 0.975){
                     drops[i] = 0;
                 }
+
+                // Menambah posisi Y untuk frame berikutnya
                 drops[i]++;
             }
         };
 
+        // Menjalankan animasi setiap 30 milidetik
         setInterval(draw, 30);
 
+        // Menyesuaikan ukuran jika layar di-resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // --- LOGIC LOGIN SEDERHANA (Hanya Demo) ---
-        const loginForm = document.getElementById('loginForm');
-        
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah reload halaman
-            const user = document.getElementById('username').value;
-            
-            // Contoh alert sederhana
-            alert("ACCESS GRANTED. WELCOME, " + user.toUpperCase());
-            
-            // Di sini kamu bisa tambahkan kode untuk pindah halaman
-            // window.location.href = "dashboard.html"; 
-        });
     </script>
 </body>
 </html>
