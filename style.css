@@ -765,3 +765,57 @@ hr.receipt-divider-inner {
 .account-actions .btn-select-account { background-color: #007AFF; color: white; }
 .account-actions .btn-select-account:disabled { background-color: #E9ECEF; color: #ADB5BD; cursor: not-allowed; }
 .account-actions .btn-edit-account { background-color: #F0F0F0; color: #333; }
+/* * ======================================
+ * MAINTENANCE OVERLAY (NEW)
+ * ======================================
+ */
+.maintenance-overlay {
+    display: none; /* Hidden default */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999; /* Paling atas */
+    justify-content: center; align-items: center;
+    padding: 20px;
+}
+
+.maintenance-card {
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 40px 30px;
+    width: 100%; max-width: 360px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    animation: slideUpFade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.maintenance-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #FF9500 0%, #FF3B30 100%);
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    margin: 0 auto 24px auto;
+    box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);
+}
+
+.maintenance-card h2 {
+    margin: 0 0 12px 0; font-size: 22px; font-weight: 700; color: #1a1a1a;
+}
+
+.maintenance-card p {
+    font-size: 15px; color: #4a5568; margin: 0 0 30px 0; line-height: 1.5;
+}
+
+.maintenance-btn {
+    width: 100%; padding: 16px; border-radius: 16px; border: none;
+    font-size: 16px; font-weight: 600; color: white;
+    background: linear-gradient(135deg, #007AFF 0%, #0056b3 100%);
+    cursor: pointer; box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
+    transition: transform 0.2s;
+}
+
+.maintenance-btn:active { transform: scale(0.97); }

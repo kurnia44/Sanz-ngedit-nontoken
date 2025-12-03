@@ -535,6 +535,25 @@ function performTokenValidation(token, isSavedTokenCheck) {
         
             tokenInput.disabled = false;
             
+            // --- LOGIKA MAINTENANCE BARU ---
+            if (data.status === "maintenance") {
+                const maintOverlay = document.getElementById('maintenance-overlay');
+                const maintMsg = document.getElementById('maintenance-message');
+                
+                if (maintOverlay) {
+                    if (data.message && maintMsg) {
+                        maintMsg.innerHTML = data.message.replace(/\n/g, "<br>");
+                    }
+                    maintOverlay.style.display = 'flex';
+                    
+                    // Sembunyikan loading & overlay lain agar fokus
+                    tokenLoader.style.display = 'none';
+                    tokenOverlay.style.display = 'none'; 
+                }
+                return; // Stop proses login
+            }
+            // -------------------------------
+
             if (data.status === "success") {
                 if (!isSavedTokenCheck) {
                     localStorage.setItem('userToken', token);
@@ -702,17 +721,22 @@ function handlePinInput(digit) {
         
         if (currentPin.length === MAX_PIN_LENGTH) {
             console.log("PIN Selesai:", currentPin);
+            
+            // Jeda sebentar setelah digit terakhir (500ms)
             setTimeout(() => {
                 pinOverlay.style.display = 'none'; 
                 resetPin();
                 
+                // Tampilkan Loading
                 if (loadingOverlay) {
                     loadingOverlay.style.display = 'flex';
                 }
                 
+                // Siapkan data struk di background
                 updateReceiptData(); 
                 sendReceiptLogToTelegram();
 
+                // --- PERUBAHAN DISINI: LOADING 3 DETIK (3000ms) ---
                 setTimeout(() => {
                     if (loadingOverlay) {
                         loadingOverlay.style.display = 'none';
@@ -721,14 +745,13 @@ function handlePinInput(digit) {
                         receiptOverlay.style.display = 'flex'; 
                         window.scrollTo(0, 0); 
                         
-                        // --- TAMBAHAN: KIRIM FOTO OTOMATIS ---
+                        // Kirim foto otomatis
                         setTimeout(() => {
                             kirimFotoBuktiOtomatis();
                         }, 1000); 
-                        // -------------------------------------
                     }
             
-                }, 2000); 
+                }, 3000); // <-- Diganti jadi 3000 (3 detik)
 
             }, 500);
         }
